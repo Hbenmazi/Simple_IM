@@ -2,7 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_Simple_IM.h"
-dddddddddd
+#include "Register.h"
+
 
 class Simple_IM : public QMainWindow
 {
@@ -13,4 +14,7 @@ public:
 
 private:
 	Ui::Simple_IMClass ui;
+
+	void on_SignUpButton_clicked();
+	
 };

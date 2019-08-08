@@ -20,7 +20,7 @@ Register* Register::getInstance()//GOF-Singleton
 }
 
 
-bool Register::SignUp(QString username, QString password,QString nicakname,QString email) const
+bool Register::SignUp(QString username, QString password,QString nickname,QString email) const
 {
 	QSqlQuery query(db->getDB());
 
@@ -38,7 +38,7 @@ bool Register::SignUp(QString username, QString password,QString nicakname,QStri
 			query.finish();//先完成上一次查询
 
 			//判断插入是否成功
-			if (query.exec("insert user values( nul,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nicakname + "\""+"," + "\"" +email + "\""+")"))
+			if (query.exec("insert user values( nul,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
 			{
 				qDebug() << "sign up successfully";
 				return 1;

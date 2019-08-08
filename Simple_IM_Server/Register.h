@@ -8,7 +8,7 @@ class Register
 {
 public:
 	static Register* getInstance();
-	bool SignUp(QString username, QString password, QString naickname, QString email) const;
+	bool SignUp(QString username, QString password, QString nickname, QString email) const;
 	bool SignIN(QString username, QString password) const;
 
 private:
