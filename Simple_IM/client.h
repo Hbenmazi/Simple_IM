@@ -1,8 +1,13 @@
 #pragma once
 #include <qobject.h>
-#include<qtcpsocket.h>
-#include<qmutex.h>
+#include <qtcpsocket.h>
+#include <qmutex.h>
 
+/**
+ * @brief 作为客户端的facade类
+ * 描述：使用单例模式，客户端中其它类通过Client类与服务器通信，同时服务器
+ *       发出的消息首先由Client接收，然后分发给其它类进行处理
+ */
 class Client :
 	public QObject
 {
@@ -11,33 +16,18 @@ class Client :
 public:
 	static Client* getInstance();
 	QTcpSocket* getSocket() const;
-	bool SendMessageToServer(QJsonDocument&  msg);
 
+	bool SendMessageToServer(QJsonDocument&  msg);
 
 private:
 	static Client* m_instance;
 	static QMutex mutex;
-	QTcpSocket* socket = NULL;
+	QTcpSocket* socket = NULL; //与服务器进行通信的TCP套接字
 
-	Client()
-	{
-		if (!socket)
-		{
-			socket = new QTcpSocket();
-			connect(socket, SIGNAL(connected()), this, SLOT(socketConnected()));
-			connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
-			connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
-
-			socket->connectToHost("127.0.0.1", 8001);
-		}
-	}
-	~Client()
-	{
-		if (!socket)
-		{
-			socket->disconnectFromHost();
-		}
-	}
+	
+	Client();
+	~Client();
+	
 
 private slots:
 	void socketConnected();

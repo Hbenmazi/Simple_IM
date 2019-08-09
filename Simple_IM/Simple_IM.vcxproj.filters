@@ -42,15 +42,15 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Client.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Register.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Client.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -63,10 +63,5 @@
     <QtRcc Include="Simple_IM.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Client.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

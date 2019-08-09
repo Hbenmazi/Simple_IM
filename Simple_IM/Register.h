@@ -1,5 +1,9 @@
 #pragma once
 #include <qobject.h>
+/**
+ * @brief 完成注册功能的类
+ */
+
 class Register :public QObject
 {
 	Q_OBJECT
