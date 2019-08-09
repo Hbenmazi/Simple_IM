@@ -46,7 +46,7 @@ void Simple_IM::on_SignUpButton_clicked()
 		return;
 	}
 
-	if (!passward.compare(passward2))
+	if (passward.compare(passward2))
 	{
 		ui.Tip_label->setText("passward doesn't match");
 		return;

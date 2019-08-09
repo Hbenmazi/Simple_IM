@@ -39,8 +39,11 @@
     <ClCompile Include="Register.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="client.cpp">
+    <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Client.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,7 +65,7 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="client.h">
+    <ClInclude Include="Client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

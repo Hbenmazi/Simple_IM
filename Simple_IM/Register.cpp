@@ -3,6 +3,7 @@
 #include "qjsonvalue.h"
 #include "qjsonobject.h"
 #include "qjsondocument.h"
+#include "Client.h"
 Register::Register()
 {
 
@@ -22,14 +23,17 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 	msg_json.insert("password", password);
 	msg_json.insert("nickname", nickname);
 	msg_json.insert("email", email);
+	qDebug()<<msg_json.value("username");
+	qDebug() << msg_json.value("password");
+	qDebug() << msg_json.value("nickname");
+	qDebug() << msg_json.value("email");
 
 	QJsonDocument msg(msg_json);
+	Client* myClient = Client::getInstance();
 
+	if (myClient->SendMessageToServer(msg))
+		return true;
+	else
+		return false;
 
-
-
-
-
-	return 1;
-	
 }
