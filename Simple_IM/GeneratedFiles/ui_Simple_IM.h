@@ -13,7 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -22,7 +22,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -31,24 +30,31 @@ class Ui_Simple_IMClass
 {
 public:
     QWidget *centralWidget;
-    QFrame *frame;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *RegisterForm;
-    QLineEdit *Username_lineEdit;
-    QLineEdit *Passward_lineEdit;
-    QLineEdit *Passward_2_lineEdit;
-    QLineEdit *Nickname_lineEdit;
-    QLineEdit *Email_lineEdit;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *LabellLayout;
-    QLabel *Username_label;
-    QLabel *Passward_label;
-    QLabel *Passward_2_label;
-    QLabel *Nickname_label;
+    QWidget *horizontalLayoutWidget_5;
+    QHBoxLayout *horizontalLayout_5;
     QLabel *Email_label;
-    QLabel *label;
-    QLabel *Tip_label;
+    QLineEdit *Email_lineEdit;
+    QWidget *horizontalLayoutWidget_4;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *Nickname_label;
+    QLineEdit *Nickname_lineEdit;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QLabel *Username_label;
+    QLineEdit *Username_lineEdit;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *Passward_label;
+    QLineEdit *Passward_lineEdit;
+    QWidget *horizontalLayoutWidget_3;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *Passward_2_label;
+    QLineEdit *Passward_2_lineEdit;
+    QWidget *horizontalLayoutWidget_6;
+    QHBoxLayout *horizontalLayout_6;
+    QPushButton *SignIn_pushButton;
     QPushButton *SignUp_pushButton;
+    QLabel *Tip_label;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -57,100 +63,131 @@ public:
     {
         if (Simple_IMClass->objectName().isEmpty())
             Simple_IMClass->setObjectName(QStringLiteral("Simple_IMClass"));
-        Simple_IMClass->resize(600, 400);
+        Simple_IMClass->resize(499, 382);
         centralWidget = new QWidget(Simple_IMClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        frame = new QFrame(centralWidget);
-        frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(130, 10, 311, 321));
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
-        verticalLayoutWidget = new QWidget(frame);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(120, 50, 160, 201));
-        RegisterForm = new QVBoxLayout(verticalLayoutWidget);
-        RegisterForm->setSpacing(6);
-        RegisterForm->setContentsMargins(11, 11, 11, 11);
-        RegisterForm->setObjectName(QStringLiteral("RegisterForm"));
-        RegisterForm->setContentsMargins(0, 0, 0, 0);
-        Username_lineEdit = new QLineEdit(verticalLayoutWidget);
-        Username_lineEdit->setObjectName(QStringLiteral("Username_lineEdit"));
-
-        RegisterForm->addWidget(Username_lineEdit);
-
-        Passward_lineEdit = new QLineEdit(verticalLayoutWidget);
-        Passward_lineEdit->setObjectName(QStringLiteral("Passward_lineEdit"));
-
-        RegisterForm->addWidget(Passward_lineEdit);
-
-        Passward_2_lineEdit = new QLineEdit(verticalLayoutWidget);
-        Passward_2_lineEdit->setObjectName(QStringLiteral("Passward_2_lineEdit"));
-
-        RegisterForm->addWidget(Passward_2_lineEdit);
-
-        Nickname_lineEdit = new QLineEdit(verticalLayoutWidget);
-        Nickname_lineEdit->setObjectName(QStringLiteral("Nickname_lineEdit"));
-
-        RegisterForm->addWidget(Nickname_lineEdit);
-
-        Email_lineEdit = new QLineEdit(verticalLayoutWidget);
-        Email_lineEdit->setObjectName(QStringLiteral("Email_lineEdit"));
-
-        RegisterForm->addWidget(Email_lineEdit);
-
-        verticalLayoutWidget_2 = new QWidget(frame);
-        verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(10, 50, 104, 191));
-        LabellLayout = new QVBoxLayout(verticalLayoutWidget_2);
-        LabellLayout->setSpacing(6);
-        LabellLayout->setContentsMargins(11, 11, 11, 11);
-        LabellLayout->setObjectName(QStringLiteral("LabellLayout"));
-        LabellLayout->setContentsMargins(0, 0, 0, 0);
-        Username_label = new QLabel(verticalLayoutWidget_2);
-        Username_label->setObjectName(QStringLiteral("Username_label"));
-        Username_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        LabellLayout->addWidget(Username_label);
-
-        Passward_label = new QLabel(verticalLayoutWidget_2);
-        Passward_label->setObjectName(QStringLiteral("Passward_label"));
-        Passward_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        LabellLayout->addWidget(Passward_label);
-
-        Passward_2_label = new QLabel(verticalLayoutWidget_2);
-        Passward_2_label->setObjectName(QStringLiteral("Passward_2_label"));
-        Passward_2_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        LabellLayout->addWidget(Passward_2_label);
-
-        Nickname_label = new QLabel(verticalLayoutWidget_2);
-        Nickname_label->setObjectName(QStringLiteral("Nickname_label"));
-        Nickname_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        LabellLayout->addWidget(Nickname_label);
-
-        Email_label = new QLabel(verticalLayoutWidget_2);
+        horizontalLayoutWidget_5 = new QWidget(centralWidget);
+        horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
+        horizontalLayoutWidget_5->setGeometry(QRect(100, 191, 301, 31));
+        horizontalLayout_5 = new QHBoxLayout(horizontalLayoutWidget_5);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        Email_label = new QLabel(horizontalLayoutWidget_5);
         Email_label->setObjectName(QStringLiteral("Email_label"));
         Email_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        LabellLayout->addWidget(Email_label);
+        horizontalLayout_5->addWidget(Email_label);
 
-        label = new QLabel(frame);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(120, 10, 71, 21));
-        label->setAlignment(Qt::AlignCenter);
-        Tip_label = new QLabel(frame);
-        Tip_label->setObjectName(QStringLiteral("Tip_label"));
-        Tip_label->setGeometry(QRect(60, 260, 201, 16));
-        Tip_label->setAlignment(Qt::AlignCenter);
-        SignUp_pushButton = new QPushButton(frame);
+        Email_lineEdit = new QLineEdit(horizontalLayoutWidget_5);
+        Email_lineEdit->setObjectName(QStringLiteral("Email_lineEdit"));
+        Email_lineEdit->setMaxLength(32767);
+
+        horizontalLayout_5->addWidget(Email_lineEdit);
+
+        horizontalLayoutWidget_4 = new QWidget(centralWidget);
+        horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
+        horizontalLayoutWidget_4->setGeometry(QRect(100, 161, 301, 31));
+        horizontalLayout_4 = new QHBoxLayout(horizontalLayoutWidget_4);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        Nickname_label = new QLabel(horizontalLayoutWidget_4);
+        Nickname_label->setObjectName(QStringLiteral("Nickname_label"));
+        Nickname_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_4->addWidget(Nickname_label);
+
+        Nickname_lineEdit = new QLineEdit(horizontalLayoutWidget_4);
+        Nickname_lineEdit->setObjectName(QStringLiteral("Nickname_lineEdit"));
+
+        horizontalLayout_4->addWidget(Nickname_lineEdit);
+
+        horizontalLayoutWidget = new QWidget(centralWidget);
+        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(100, 70, 301, 31));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        Username_label = new QLabel(horizontalLayoutWidget);
+        Username_label->setObjectName(QStringLiteral("Username_label"));
+        Username_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout->addWidget(Username_label);
+
+        Username_lineEdit = new QLineEdit(horizontalLayoutWidget);
+        Username_lineEdit->setObjectName(QStringLiteral("Username_lineEdit"));
+
+        horizontalLayout->addWidget(Username_lineEdit);
+
+        horizontalLayoutWidget_2 = new QWidget(centralWidget);
+        horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setGeometry(QRect(100, 101, 301, 31));
+        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        Passward_label = new QLabel(horizontalLayoutWidget_2);
+        Passward_label->setObjectName(QStringLiteral("Passward_label"));
+        Passward_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_2->addWidget(Passward_label);
+
+        Passward_lineEdit = new QLineEdit(horizontalLayoutWidget_2);
+        Passward_lineEdit->setObjectName(QStringLiteral("Passward_lineEdit"));
+
+        horizontalLayout_2->addWidget(Passward_lineEdit);
+
+        horizontalLayoutWidget_3 = new QWidget(centralWidget);
+        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
+        horizontalLayoutWidget_3->setGeometry(QRect(100, 131, 301, 31));
+        horizontalLayout_3 = new QHBoxLayout(horizontalLayoutWidget_3);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        Passward_2_label = new QLabel(horizontalLayoutWidget_3);
+        Passward_2_label->setObjectName(QStringLiteral("Passward_2_label"));
+        Passward_2_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_3->addWidget(Passward_2_label);
+
+        Passward_2_lineEdit = new QLineEdit(horizontalLayoutWidget_3);
+        Passward_2_lineEdit->setObjectName(QStringLiteral("Passward_2_lineEdit"));
+
+        horizontalLayout_3->addWidget(Passward_2_lineEdit);
+
+        horizontalLayoutWidget_6 = new QWidget(centralWidget);
+        horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
+        horizontalLayoutWidget_6->setGeometry(QRect(100, 260, 301, 41));
+        horizontalLayout_6 = new QHBoxLayout(horizontalLayoutWidget_6);
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
+        SignIn_pushButton = new QPushButton(horizontalLayoutWidget_6);
+        SignIn_pushButton->setObjectName(QStringLiteral("SignIn_pushButton"));
+
+        horizontalLayout_6->addWidget(SignIn_pushButton);
+
+        SignUp_pushButton = new QPushButton(horizontalLayoutWidget_6);
         SignUp_pushButton->setObjectName(QStringLiteral("SignUp_pushButton"));
-        SignUp_pushButton->setGeometry(QRect(110, 290, 75, 23));
+
+        horizontalLayout_6->addWidget(SignUp_pushButton);
+
+        Tip_label = new QLabel(centralWidget);
+        Tip_label->setObjectName(QStringLiteral("Tip_label"));
+        Tip_label->setGeometry(QRect(100, 230, 301, 20));
+        Tip_label->setAlignment(Qt::AlignCenter);
         Simple_IMClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Simple_IMClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
+        menuBar->setGeometry(QRect(0, 0, 499, 23));
         Simple_IMClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Simple_IMClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -167,14 +204,15 @@ public:
     void retranslateUi(QMainWindow *Simple_IMClass)
     {
         Simple_IMClass->setWindowTitle(QApplication::translate("Simple_IMClass", "Simple_IM", Q_NULLPTR));
+        Email_label->setText(QApplication::translate("Simple_IMClass", "Email:", Q_NULLPTR));
+        Nickname_label->setText(QApplication::translate("Simple_IMClass", "Nickname:", Q_NULLPTR));
         Username_label->setText(QApplication::translate("Simple_IMClass", "Username:", Q_NULLPTR));
         Passward_label->setText(QApplication::translate("Simple_IMClass", "Passward:", Q_NULLPTR));
+        Passward_lineEdit->setInputMask(QString());
         Passward_2_label->setText(QApplication::translate("Simple_IMClass", "Confirm Passward:", Q_NULLPTR));
-        Nickname_label->setText(QApplication::translate("Simple_IMClass", "Nickname:", Q_NULLPTR));
-        Email_label->setText(QApplication::translate("Simple_IMClass", "Email:", Q_NULLPTR));
-        label->setText(QApplication::translate("Simple_IMClass", "Sign Up", Q_NULLPTR));
-        Tip_label->setText(QString());
+        SignIn_pushButton->setText(QApplication::translate("Simple_IMClass", "Sign In", Q_NULLPTR));
         SignUp_pushButton->setText(QApplication::translate("Simple_IMClass", "Sign Up", Q_NULLPTR));
+        Tip_label->setText(QString());
     } // retranslateUi
 
 };

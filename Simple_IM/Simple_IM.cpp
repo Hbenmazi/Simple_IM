@@ -1,13 +1,16 @@
 #include "Simple_IM.h"
 
-Simple_IM::Simple_IM(QWidget *parent)
+Simple_IM::Simple_IM(LoginGUI* LoginD, QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	QObject::connect(ui.SignUp_pushButton,&QPushButton::clicked,this,&Simple_IM::on_SignUpButton_clicked);
+
+	LoginDialog = LoginD;
+	QObject::connect(ui.SignUp_pushButton,&QPushButton::clicked,this,&Simple_IM::onSignUpButtonClicked);
+	QObject::connect(ui.SignIn_pushButton, &QPushButton::clicked, this, &Simple_IM::onSignInButtonClicked);
 }
 
-void Simple_IM::on_SignUpButton_clicked()
+void Simple_IM::onSignUpButtonClicked()
 {
 	Register reg;
 	QString username(ui.Username_lineEdit->text());
@@ -58,3 +61,16 @@ void Simple_IM::on_SignUpButton_clicked()
 		ui.Tip_label->setText("username has already existed");
 
 }
+
+void Simple_IM::onSignInButtonClicked()
+{
+	this->close();
+	LoginDialog->show();
+
+}
+
+Simple_IM::~Simple_IM()
+{
+}
+
+

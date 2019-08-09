@@ -42,6 +42,9 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoginGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -53,11 +56,9 @@
     <QtMoc Include="Client.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="Simple_IM.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
+    <QtMoc Include="LoginGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Simple_IM.qrc">
@@ -68,5 +69,19 @@
     <ClInclude Include="MsgType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Simple_IM.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="LoginGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Simple_IM.rc" />
   </ItemGroup>
 </Project>
