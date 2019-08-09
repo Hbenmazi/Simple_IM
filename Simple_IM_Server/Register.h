@@ -3,10 +3,13 @@
 #include<QMutex>
 #include<QString>
 #include<RemoteDB.h>
-
+/**
+* @
+*/
 class Register
 {
 public:
+	
 	static Register* getInstance();
 	bool SignUp(QString username, QString password, QString nickname, QString email) const;
 	bool SignIN(QString username, QString password) const;
