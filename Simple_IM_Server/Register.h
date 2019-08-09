@@ -13,7 +13,7 @@ class Register
 public:
 	
 	static Register* getInstance();
-	bool SignUp(QString username, QString password, QString nickname, QString email) const;
+	bool SignUp(QJsonObject userinfo) const;
 
 private:
 	static QMutex mutex;

@@ -1,5 +1,10 @@
 #include "Server.h"
-#include"qtcpsocket.h"
+#include "qtcpsocket.h"
+#include "qjsonobject.h"
+#include "Global.h"
+#include "Register.h"
+#include "../Simple_IM/MsgType.h"
+
  QMutex Server::mutex;
  Server*  Server::m_instance = NULL;
 
@@ -102,8 +107,20 @@ void Server::socketReadyRead()
 	int port = client->peerPort();
 
 	//read the data
-	QByteArray data = QByteArray(client->readAll());
-	qDebug() << "\nMessage: " + data + " (" + socketIpAddress + ":" + QString::number(port) + ")\n";
+	QString data_string = QString(client->readAll());
+	qDebug() << "\nMessage: " + data_string + " (" + socketIpAddress + ":" + QString::number(port) + ")\n";
+	QJsonObject data = getJsonObjectFromString(data_string);//将消息转化成JSON格式
+
+	//判断消息类型
+	switch (data.value("type").toInt())
+	{
+		case MsgType::signup:
+			Register::getInstance()->SignUp(data);
+			break;
+
+		default:
+			break;
+	}
 
 	
 	

@@ -27,8 +27,15 @@ Register* Register::getInstance()//GOF-Singleton
 *tableAccess;user
 *tableUpdate:user
 */
-bool Register::SignUp(QString username, QString password,QString nickname,QString email) const
+
+bool Register::SignUp(QJsonObject userinfo) const
 {
+	//提取用户信息
+	QString username = userinfo.value("username").toString();
+	QString password = userinfo.value("password").toString();
+	QString nickname = userinfo.value("nickname").toString();
+	QString email = userinfo.value("email").toString();
+
 	//初始化查询语句
 	QSqlQuery query(db->getDB());
 
@@ -47,7 +54,7 @@ bool Register::SignUp(QString username, QString password,QString nickname,QStrin
 			query.finish();//先完成上一次查询
 
 			//更新user表
-			if (query.exec("insert user values( nul,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
+			if (query.exec("insert user values( null,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
 			{
 				qDebug() << "sign up successfully";
 				return 1;
