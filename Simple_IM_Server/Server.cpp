@@ -70,7 +70,7 @@
  void Server::StartServer()
  {
 	
-	 allClients = new QVector<QTcpSocket*>;
+	 allClients = new QVector<User*>;
 	 chatServer = new QTcpServer();
 
 	 //设置最大连接数量为10
@@ -91,9 +91,12 @@
 
  }
 
- void Server::RegisterClient(QTcpSocket * client)
+ void Server::RegisterClient(int user_id,QString username, QTcpSocket * client)
  {
-	 allClients->push_back(client);
+	 User* user = new User(user_id, username, client);
+	 allClients->push_back(user);
+
+	 emit newClientSignIn(user_id, username, client);
  }
 
 /**
@@ -113,20 +116,33 @@
 	 connect(client, &QTcpSocket::readyRead, this, &Server::socketReadyRead);
 	 connect(client, &QTcpSocket::stateChanged, this, &Server::socketStateChanged);
 	
-	 //将新的套接字放入vector中
-	 allClients->push_back(client);
-
 	 qDebug() << "\nSocket connected from " + ipAddress + ":" + QString::number(port)<<"\n";
  }
  
 
-void Server::socketDisconnected()
+ void Server::socketDisconnected()
 {
 	//nothing but display info in console
 	QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
 	QString socketIpAddress = client->peerAddress().toString();
 	int port = client->peerPort();
 	qDebug() << "Socket disconnected from " + socketIpAddress + ":" + QString::number(port);
+
+	int index = 0;//登出用户在allclients中的索引
+	for (index = 0; index < allClients->size(); index++)
+	{
+		if (allClients->value(index)->getSocket() == client)
+			break;
+	}
+
+	//获取待登出的用户
+	User* logoutUser = allClients->value(index);
+	emit ClientLogOut(logoutUser->getUserId(),logoutUser->getUsername(),client);
+
+	logoutUser->~User();
+
+	//从已登录的列表中移除
+	allClients->removeAt(index);
 }
 
 /**
@@ -197,10 +213,14 @@ void Server::socketStateChanged(QAbstractSocket::SocketState state)
 
 Server::Server()
 {
-
+	connect(Login::getInstance(), SIGNAL(newClientSignIn(int, QTcpSocket*)), this, SLOT(onNewClientSignIn(int, QTcpSocket*)));
 }
 
 
 Server::~Server()
 {
+	for (int i = 0;i<allClients->size();i++)
+	{
+		allClients->value(i)->~User();
+	}
 }

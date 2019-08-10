@@ -48,12 +48,18 @@
     <ClCompile Include="Login.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM_Server.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Server.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Login.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -80,7 +86,7 @@
     <ClInclude Include="..\Simple_IM\MsgType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Login.h">
+    <ClInclude Include="User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,8 +28,10 @@ Login* Login::getInstance()//GOF-Singleton
 *tableUpdate:user
 */
 
-bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client) const
+bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client)
 {
+	int user_id;//用于保存用户id
+
 	//提取用户信息
 	QString username = userinfo.value("username").toString();
 	QString password = userinfo.value("password").toString();
@@ -60,17 +62,14 @@ bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client) const
 	}
 
 	//用户名存在，检验密码
-
-	//QSqlQuery返回的数据集，record是停在第一条记录之前的,通过fisrt()指向第一条记录
-	query.first();
-
+	query.first();//record是停在第一条记录之前的,通过fisrt()指向第一条记录
+	user_id = query.value("user_id").toInt();
 	if (password.compare(query.value("passward").toString()) == 0)
 	{
-		qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 		qDebug() << query.value("passward").toString();
 	    //密码符合
 ;		//向服务器注册
-		Server::getInstance()->RegisterClient(client);
+		Server::getInstance()->RegisterClient(user_id,username,client);
 
 		//向客户端返回登陆成功信息
 		QJsonObject msg_json;
