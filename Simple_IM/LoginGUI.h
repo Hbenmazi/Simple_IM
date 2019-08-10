@@ -2,6 +2,8 @@
 
 #include <QDialog>
 #include "ui_LoginGUI.h"
+#include "qstring.h"
+#include "Login.h"
 class Simple_IM;
 
 class LoginGUI : public QDialog
@@ -16,8 +18,12 @@ private:
 	Ui::LoginGUI ui;
 	Simple_IM* SignUpDialog ;
 
+	Login login;
+
 private slots:
 	void onSignUpButtonClicked();
 	void onSignInButtonClicked();
+	void onSignInSuccess();
+	void onSignInFail(QString info);
 
 };

@@ -7,7 +7,8 @@
 #include "MsgType.h"
 Register::Register()
 {
-
+	connect(Client::getInstance(), SIGNAL(SignUpSuccess()), this, SLOT(onSignUpSuccess()));
+	connect(Client::getInstance(), SIGNAL(SignUpFail(QString)), this, SLOT(onSignUpFail(QString)));
 }
 
 
@@ -47,6 +48,7 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 	//获取facade
 	Client* myClient = Client::getInstance();
 
+
 	//发出请求
 	if (myClient->SendMessageToServer(msg))
 	{
@@ -59,4 +61,12 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 		return false;
 	}
 
+}
+void Register::onSignUpSuccess() 
+{
+	emit SignUpSuccess();
+}
+void Register::onSignUpFail(QString info)
+{
+	emit SignUpFail(info);
 }

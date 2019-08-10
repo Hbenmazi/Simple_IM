@@ -8,11 +8,12 @@ Simple_IM::Simple_IM(LoginGUI* LoginD, QWidget *parent)
 	LoginDialog = LoginD;
 	QObject::connect(ui.SignUp_pushButton,&QPushButton::clicked,this,&Simple_IM::onSignUpButtonClicked);
 	QObject::connect(ui.SignIn_pushButton, &QPushButton::clicked, this, &Simple_IM::onSignInButtonClicked);
+	QObject::connect(&reg, SIGNAL(SignUpSuccess()), this, SLOT(onSignUpSuccess()));
+	QObject::connect(&reg, SIGNAL(SignUpFail(QString)), this, SLOT(onSignUpFail(QString)));
 }
 
 void Simple_IM::onSignUpButtonClicked()
 {
-	Register reg;
 	QString username(ui.Username_lineEdit->text());
 	QString passward(ui.Passward_lineEdit->text());
 	QString passward2(ui.Passward_2_lineEdit->text());
@@ -55,10 +56,8 @@ void Simple_IM::onSignUpButtonClicked()
 		return;
 	}
 
-	if(reg.SignUp(username, passward, nickname, email))
-		ui.Tip_label->setText("Sign up successfully");
-	else
-		ui.Tip_label->setText("username has already existed");
+	reg.SignUp(username, passward, nickname, email);
+	
 
 }
 
@@ -67,6 +66,16 @@ void Simple_IM::onSignInButtonClicked()
 	this->close();
 	LoginDialog->show();
 
+}
+
+void Simple_IM::onSignUpSuccess()
+{
+	onSignInButtonClicked();
+}
+
+void Simple_IM::onSignUpFail(QString info)
+{
+	ui.Tip_label->setText(info);
 }
 
 Simple_IM::~Simple_IM()

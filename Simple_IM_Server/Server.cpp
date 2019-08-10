@@ -152,7 +152,7 @@ void Server::socketReadyRead()
 	switch (data.value("type").toInt())
 	{
 		case MsgType::signup:
-			Register::getInstance()->SignUp(data);
+			Register::getInstance()->SignUp(data, client);
 			break;
 
 		case MsgType::signin:

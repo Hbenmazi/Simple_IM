@@ -1,6 +1,6 @@
 #include "Register.h"
-
-
+#include "../Simple_IM/MsgType.h"
+#include "Server.h"
 Register* Register::m_instance = NULL;
 QMutex  Register::mutex;
 
@@ -28,7 +28,7 @@ Register* Register::getInstance()//GOF-Singleton
 *tableUpdate:user
 */
 
-bool Register::SignUp(QJsonObject userinfo) const
+bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 {
 	//提取用户信息
 	QString username = userinfo.value("username").toString();
@@ -53,11 +53,19 @@ bool Register::SignUp(QJsonObject userinfo) const
 	{
 		query.finish();//先完成上一次查询
 
-		//更新user表
+		//更新user表,向客户端返回注册成功消息
 		if (query.exec("insert user values( null,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
 		{
 			qDebug() << "Server:";
 			qDebug() << "sign up successfully";
+
+
+			QJsonObject msg_json;
+			msg_json.insert("type", MsgType::signupSuccess);
+
+			QJsonDocument msg(msg_json);
+
+			Server::getInstance()->SendMessageToClient(msg, client);
 			return 1;
 		}
 		else
@@ -65,6 +73,13 @@ bool Register::SignUp(QJsonObject userinfo) const
 			//更新失败，返回错误信息
 			qDebug() << "Server Error(signup,update):";
 			qDebug() << "\n\n" << query.lastError().text() << "\n\n";
+
+			QJsonObject msg_json;
+			msg_json.insert("type", MsgType::signupFail);
+			msg_json.insert("info", "Server error");
+
+			QJsonDocument msg(msg_json);
+			Server::getInstance()->SendMessageToClient(msg, client);
 			return 0;
 		}
 
@@ -74,6 +89,13 @@ bool Register::SignUp(QJsonObject userinfo) const
 		//用户名已经被注册
 		qDebug() << "Server:";
 		qDebug() << "\n\n" << "username has been signed up"<< "\n\n";
+
+		QJsonObject msg_json;
+		msg_json.insert("type", MsgType::signupFail);
+		msg_json.insert("info", "username has been signed up");
+
+		QJsonDocument msg(msg_json);
+		Server::getInstance()->SendMessageToClient(msg, client);
 		return 0;
 	}
 	

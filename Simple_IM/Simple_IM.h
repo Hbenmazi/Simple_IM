@@ -17,8 +17,11 @@ private:
 	Ui::Simple_IMClass ui;
 	LoginGUI* LoginDialog;
 
+	Register reg;
+
 private slots:
 	void onSignUpButtonClicked();
 	void onSignInButtonClicked();
-	
+	void onSignUpSuccess();
+	void onSignUpFail(QString info);
 };

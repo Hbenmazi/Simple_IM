@@ -36,6 +36,7 @@ RemoteDB::RemoteDB()
 	db.setUserName("root");
 	db.setPassword("Hezhiwei0616$");
 	bool ok = db.open();
+	db.setConnectOptions("MYSQL_OPT_RECONNECT=1");//确保由于超时与数据库断开连接后能自动重连
 
 	if (!ok)
 		qDebug() << "数据库打开失败";

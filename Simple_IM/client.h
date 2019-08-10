@@ -2,6 +2,7 @@
 #include <qobject.h>
 #include <qtcpsocket.h>
 #include <qmutex.h>
+#include <QString>
 
 /**
  * @brief 作为客户端的facade类
@@ -28,11 +29,17 @@ private:
 	Client();
 	~Client();
 	
-
 private slots:
 	void socketConnected();
 	void socketDisconnected();
 	void socketReadyRead();
+
+signals:
+	void SignUpSuccess();
+	void SignUpFail(QString info);
+	void SignInSuccess();
+	void SignInFail(QString info);
+
 
 	
 };

@@ -9,6 +9,8 @@ LoginGUI::LoginGUI(QWidget *parent)
 
 	connect(ui.SignUp_pushButton, &QPushButton::clicked, this, &LoginGUI::onSignUpButtonClicked);
 	connect(ui.SignIn_pushButton, &QPushButton::clicked, this, &LoginGUI::onSignInButtonClicked);
+	connect(&login, SIGNAL(SignInSuccess()), this, SLOT(onSignInSuccess()));
+	connect(&login, SIGNAL(SignInFail(QString)), this, SLOT(onSignInFail(QString)));
 }
 
 
@@ -20,7 +22,6 @@ void LoginGUI::onSignUpButtonClicked()
 
 void LoginGUI::onSignInButtonClicked()
 {
-	Login login;
 	QString username = ui.username_lineEdit->text();
 	QString passward = ui.passward_lineEdit->text();
 
@@ -36,6 +37,15 @@ void LoginGUI::onSignInButtonClicked()
 	}
 
 	login.SignIn(username,passward);
+}
+
+void LoginGUI::onSignInSuccess()
+{
+}
+
+void LoginGUI::onSignInFail(QString info)
+{
+	ui.Tip_label->setText(info);
 }
 
 

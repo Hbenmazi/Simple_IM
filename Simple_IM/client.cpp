@@ -1,7 +1,8 @@
 #include "Client.h"
 #include "qjsondocument.h"
-
-
+#include "qtcpsocket.h"
+#include "../Simple_IM_Server/Global.h"
+#include "MsgType.h"
 Client* Client::m_instance = NULL;
 QMutex Client::mutex;
 
@@ -17,7 +18,33 @@ void Client::socketDisconnected()
 
 void Client::socketReadyRead()
 {
-	qDebug() << "socketReadyRead:" << socket->readAll();
+	//read the data
+	QString data_string = QString(socket->readAll());
+	qDebug() << "\nMessage: " + data_string;
+	QJsonObject data = getJsonObjectFromString(data_string);//将消息转化成JSON格式
+
+	//判断消息类型
+	switch (data.value("type").toInt())
+	{
+	case MsgType::signupSuccess:
+		emit SignUpSuccess();
+		break;
+
+	case MsgType::signupFail:
+		emit SignUpFail(data.value("info").toString());
+		break;
+
+	case MsgType::signinSuccess:
+		emit SignInSuccess();
+		break;
+
+	case MsgType::signinFail:
+		emit SignInFail(data.value("info").toString());
+		break;
+
+	default:
+		break;
+	}
 }
 
 

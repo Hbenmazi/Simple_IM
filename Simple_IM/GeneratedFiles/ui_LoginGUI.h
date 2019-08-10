@@ -94,6 +94,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Tip_label->sizePolicy().hasHeightForWidth());
         Tip_label->setSizePolicy(sizePolicy);
+        Tip_label->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(Tip_label);
 

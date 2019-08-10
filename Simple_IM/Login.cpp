@@ -5,6 +5,8 @@
 #include "Client.h"
 Login::Login()
 {
+	connect(Client::getInstance(), SIGNAL(SignInSuccess()), this, SLOT(onSignInSuccess()));
+	connect(Client::getInstance(), SIGNAL(SignInFail(QString)), this, SLOT(onSignInFail(QString)));
 }
 
 
@@ -43,4 +45,13 @@ bool Login::SignIn(QString username, QString password) const
 		qDebug() << "fail to send signin msg";
 		return false;
 	}
+}
+
+void Login::onSignInSuccess()
+{
+	emit SignInSuccess();
+}
+void Login::onSignInFail(QString info)
+{
+	emit SignInFail(info);
 }
