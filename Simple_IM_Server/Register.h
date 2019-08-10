@@ -21,6 +21,7 @@ private:
 	RemoteDB* db;
 	
 	Register();
+	~Register();
 	
 
 

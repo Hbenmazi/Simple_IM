@@ -3,6 +3,7 @@
 #include "qjsonobject.h"
 #include "Global.h"
 #include "Register.h"
+#include "Login.h"
 #include "../Simple_IM/MsgType.h"
 
  QMutex Server::mutex;
@@ -23,6 +24,46 @@
 }
 
 /**
+*Function: SendMessageToClient
+*Description: 向客户端传送message
+*param:
+*msg - 被传送的消息(以JSON格式传送)
+*socket - 与目标客户端连接的套接字
+*return: 发送成功则返回真
+*/
+ bool Server::SendMessageToClient(QJsonDocument & msg, QTcpSocket* socket)
+ {
+	 //检查套接字的状态是否为已连接
+	 if (socket->state() == QAbstractSocket::SocketState::ConnectedState)
+	 {
+		 //将数据从msg中取出
+		 QByteArray data = msg.toJson();
+
+		 //将数据写入套接字
+		 if (socket->write(data) == -1)
+		 {
+			 //如果发送失败返回错误信息
+			 qDebug() << "Server:";
+			 qDebug() << "fail to send msg";
+			 qDebug() << socket->errorString();
+			 return false;
+		 }
+		 else
+		 {
+			 qDebug() << "Server:";
+			 qDebug() << "success to send msg";
+			 return true;
+		 }
+	 }
+	 else
+	 {
+		 qDebug() << "Server error:";
+		 qDebug() << "socket'state:" << socket->state();
+	 }
+	 return false;
+ }
+
+ /**
 *Function: StartServer
 *Description: 开启服务区监听客户端发起的连接
 */
@@ -50,6 +91,11 @@
 
  }
 
+ void Server::RegisterClient(QTcpSocket * client)
+ {
+	 allClients->push_back(client);
+ }
+
 /**
 *Function: newClientConnection
 *Description: 新连接产生后，将套接字放入vector中
@@ -73,15 +119,6 @@
 	 qDebug() << "\nSocket connected from " + ipAddress + ":" + QString::number(port)<<"\n";
  }
  
- Server::Server()
-{
-
-}
-
-
-Server::~Server()
-{
-}
 
 void Server::socketDisconnected()
 {
@@ -110,12 +147,16 @@ void Server::socketReadyRead()
 	QString data_string = QString(client->readAll());
 	qDebug() << "\nMessage: " + data_string + " (" + socketIpAddress + ":" + QString::number(port) + ")\n";
 	QJsonObject data = getJsonObjectFromString(data_string);//将消息转化成JSON格式
-
+	
 	//判断消息类型
 	switch (data.value("type").toInt())
 	{
 		case MsgType::signup:
 			Register::getInstance()->SignUp(data);
+			break;
+
+		case MsgType::signin:
+			Login::getInstance()->SignIn(data, client);
 			break;
 
 		default:
@@ -152,4 +193,14 @@ void Server::socketStateChanged(QAbstractSocket::SocketState state)
 	else if (state == QAbstractSocket::ListeningState)
 		desc = "For internal use only.";
 	qDebug() << "\nSocket state changed (" + socketIpAddress + ":" + QString::number(port) + "): " + desc+"\n";
+}
+
+Server::Server()
+{
+
+}
+
+
+Server::~Server()
+{
 }

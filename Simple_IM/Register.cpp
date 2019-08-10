@@ -35,7 +35,8 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 	msg_json.insert("nickname", nickname);
 	msg_json.insert("email", email);
 
-	qDebug() <<msg_json.value("username");
+	qDebug() << "Client Sign up:";
+	qDebug() << msg_json.value("username");
 	qDebug() << msg_json.value("password");
 	qDebug() << msg_json.value("nickname");
 	qDebug() << msg_json.value("email");
@@ -48,8 +49,14 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 
 	//·¢³öÇëÇó
 	if (myClient->SendMessageToServer(msg))
+	{
+		qDebug() << "success to send signup msg";
 		return true;
+	}
 	else
+	{
+		qDebug() << "fail to signup msg";
 		return false;
+	}
 
 }

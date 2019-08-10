@@ -43,37 +43,40 @@ bool Register::SignUp(QJsonObject userinfo) const
 	if (query.exec("select * from user where username = \" " +username+ " \" ") == false)//查询失败
 	{
 		//打印错误信息
+		qDebug() << "Server Error(signup,select):";
 		qDebug() << "\n\n" << query.lastError().text().toUtf8() << "\n\n";
 		return 0;
 	}
-	else
+	
+	//判断用户名是否存在
+	if (query.size() == 0)
 	{
-		//判断用户名是否存在
-		if (query.size() == 0)
+		query.finish();//先完成上一次查询
+
+		//更新user表
+		if (query.exec("insert user values( null,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
 		{
-			query.finish();//先完成上一次查询
-
-			//更新user表
-			if (query.exec("insert user values( null,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
-			{
-				qDebug() << "sign up successfully";
-				return 1;
-			}
-			else
-			{
-				//更新失败，返回错误信息
-				qDebug() << "\n\n" << query.lastError().text() << "\n\n";
-				return 0;
-			}
-
+			qDebug() << "Server:";
+			qDebug() << "sign up successfully";
+			return 1;
 		}
 		else
 		{
-			//用户名已经被注册
-			qDebug() << "\n\n" << "username has been signed up"<< "\n\n";
+			//更新失败，返回错误信息
+			qDebug() << "Server Error(signup,update):";
+			qDebug() << "\n\n" << query.lastError().text() << "\n\n";
 			return 0;
 		}
+
 	}
+	else
+	{
+		//用户名已经被注册
+		qDebug() << "Server:";
+		qDebug() << "\n\n" << "username has been signed up"<< "\n\n";
+		return 0;
+	}
+	
 }
 
 /**
@@ -83,4 +86,9 @@ bool Register::SignUp(QJsonObject userinfo) const
 Register::Register()
 {
 	db = RemoteDB::getInstance();
+};
+
+Register::~Register()
+{
+
 };

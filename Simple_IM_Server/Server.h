@@ -16,8 +16,9 @@ class Server :
 
 public:
 	static Server* getInstance();
-
+	bool SendMessageToClient(QJsonDocument&  msg,QTcpSocket* socket);
 	void StartServer();
+	void RegisterClient(QTcpSocket* client);
 
 private:
 	static QMutex mutex;

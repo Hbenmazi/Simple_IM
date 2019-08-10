@@ -114,6 +114,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Register.cpp" />
     <ClCompile Include="RemoteDB.cpp" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="..\Simple_IM\MsgType.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="Register.h" />
     <ClInclude Include="RemoteDB.h" />
     <QtMoc Include="Server.h">

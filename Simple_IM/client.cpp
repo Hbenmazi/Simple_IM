@@ -59,12 +59,14 @@ bool Client::SendMessageToServer(QJsonDocument& msg)
 	if (socket->write(data) == -1)
 	{
 		//如果发送失败返回错误信息
+		qDebug() << "Client:";
 		qDebug() << "fail to send msg";
 		qDebug() << socket->errorString();
 		return false;
 	}
 	else
 	{
+		qDebug() << "Client:";
 		qDebug() << "success to send msg";
 		return true;
 	}

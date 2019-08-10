@@ -35,6 +35,7 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QLabel *passward_label;
     QLineEdit *passward_lineEdit;
+    QLabel *Tip_label;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *SignUp_pushButton;
     QPushButton *SignIn_pushButton;
@@ -86,6 +87,16 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
+        Tip_label = new QLabel(verticalLayoutWidget);
+        Tip_label->setObjectName(QStringLiteral("Tip_label"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(Tip_label->sizePolicy().hasHeightForWidth());
+        Tip_label->setSizePolicy(sizePolicy);
+
+        verticalLayout->addWidget(Tip_label);
+
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -113,6 +124,7 @@ public:
         LoginGUI->setWindowTitle(QApplication::translate("LoginGUI", "LoginGUI", Q_NULLPTR));
         username_label->setText(QApplication::translate("LoginGUI", "username:", Q_NULLPTR));
         passward_label->setText(QApplication::translate("LoginGUI", "passward:", Q_NULLPTR));
+        Tip_label->setText(QString());
         SignUp_pushButton->setText(QApplication::translate("LoginGUI", "Sign Up", Q_NULLPTR));
         SignIn_pushButton->setText(QApplication::translate("LoginGUI", "Sign In", Q_NULLPTR));
     } // retranslateUi
