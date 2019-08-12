@@ -23,7 +23,7 @@ bool List::ReturnList(QJsonObject data, QTcpSocket * client)
 		QSqlQuery query(db->getDB());
 
 		QString sql;
-		sql = QString("SELECT * FROM user WHERE user_id IN( SELECT recv_id from friendship WHERE sender_id = %1 )").arg(user_id);
+		sql = QString("SELECT * FROM user WHERE user_id IN( SELECT recv_id from friendship WHERE sender_id = %1 UNION ALL SELECT sender_id from friendship WHERE recv_id = %2)").arg(user_id).arg(user_id);
 		query.exec(sql);
 		while (query.next()) {
 			QString user_id = query.value(0).toString();

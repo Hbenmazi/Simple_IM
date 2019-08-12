@@ -2,7 +2,7 @@
 #include "MsgType.h"
 #include "qjsondocument.h"
 #include "Client.h"
-
+#include "qvector.h"
 QMutex List::mutex;
 List*  List::m_instance = NULL;
 
@@ -23,7 +23,7 @@ List* List::getInstance()//GOF-Singleton
 
 List::List()
 {
-	connect(Client::getInstance(), SIGNAL(ListRefreshed(QJsonObject)), this, SLOT(onListRefreshed(QJsonObject)));
+	connect(Client::getInstance(), SIGNAL(ListRefreshed(QVector<QJsonObject>)), this, SLOT(onListRefreshed(QVector<QJsonObject>)));
 }
 
 
@@ -60,7 +60,7 @@ void List::setUsername(QString username)
 	this->username = username;
 }
 
-void List::onListRefreshed(QJsonObject user)
+void List::onListRefreshed(QVector<QJsonObject>userArray)
 {
-	emit ListRefreshed(user);
+	emit ListRefreshed(userArray);
 }

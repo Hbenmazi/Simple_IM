@@ -55,7 +55,7 @@ void Client::socketReadyRead()
 			break;
 
 		case MsgType::friendListResult:
-			emit ListRefreshed(data);
+			emit ListRefreshed(dataArray);
 			break;
 
 		default:

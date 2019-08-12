@@ -12,7 +12,7 @@ public:
 	static List* getInstance();
 	
 public slots:
-	void onListRefreshed(QJsonObject user);
+	void onListRefreshed(QVector<QJsonObject> userArray);
 	bool RefreshList();
 	void setUsername(QString username);
 	
@@ -28,5 +28,5 @@ private:
 
 
 signals:
-	void ListRefreshed(QJsonObject user);
+	void ListRefreshed(QVector<QJsonObject> userArray);
 };

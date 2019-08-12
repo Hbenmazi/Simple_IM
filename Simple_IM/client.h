@@ -4,7 +4,7 @@
 #include <qmutex.h>
 #include <QString>
 #include "qjsonobject.h"
-
+#include "qvector.h"
 /**
  * @brief 作为客户端的facade类
  * 描述：使用单例模式，客户端中其它类通过Client类与服务器通信，同时服务器
@@ -42,7 +42,7 @@ signals:
 	void SignInFail(QString info);
 	void AddContactSuccess(QJsonObject data);
 	void AddContactFail(QJsonObject data);
-	void ListRefreshed(QJsonObject data);
+	void ListRefreshed(QVector<QJsonObject> dataArray);
 
 
 	
