@@ -5,6 +5,7 @@
 #include "AddGUI.h"
 #include "qjsonobject.h"
 #include "qvector.h"
+#include "ChatGUI.h"
 class ListGUI : public QDialog
 {
 	Q_OBJECT
@@ -22,6 +23,7 @@ public slots:
 private:
 	Ui::ListGUI ui;
 	AddGUI* add;//添加好友的对话框
+	ChatGUI* chat;//聊天对话框
 	QString username = "";
 	QVector<QPushButton*> friendlist;
 

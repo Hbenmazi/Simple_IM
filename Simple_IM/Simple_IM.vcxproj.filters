@@ -60,6 +60,9 @@
     <ClCompile Include="List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChatGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -89,6 +92,9 @@
     <QtMoc Include="List.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ChatGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Simple_IM.qrc">
@@ -114,6 +120,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="AddGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ChatGUI.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
