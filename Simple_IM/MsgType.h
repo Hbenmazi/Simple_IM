@@ -6,6 +6,7 @@ enum MsgType
 	signup,
 	signin,
 	addContact,
+	getFriendList,
 
 	/*server to client*/
 	signupSuccess,
@@ -13,5 +14,6 @@ enum MsgType
 	signinSuccess,
 	signinFail,
 	addContactSuccess,
-	addContactFail
+	addContactFail,
+	friendListResult
 };

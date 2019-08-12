@@ -1,7 +1,7 @@
 #pragma once
 #include<qjsonobject.h>
 #include<qjsondocument.h>
-
+#include<qvector.h>
 
 /**
 *Function: getJsonObjectFromString
@@ -18,3 +18,34 @@ QJsonObject getJsonObjectFromString(const QString jsonString) {
 	QJsonObject jsonObject = jsonDocument.object();
 	return jsonObject;
 }
+
+QVector<QJsonObject> getJsonObjectArrayFromString(const QString jsonString) {
+
+	QVector<QJsonObject> JsonArray;
+	int count = 0;//计算字符串中有几条信息
+	int size = jsonString.size();
+	for (int i = 0; i < jsonString.size(); i++)
+	{
+		if (jsonString.at(i) == '}')
+			count++;
+	}
+
+	for (int k = 0; k < count; k++)
+	{
+		QString section = jsonString.section('}', k, k);
+		section.append('}');
+
+		QJsonDocument jsonDocument = QJsonDocument::fromJson(section.toLocal8Bit().data());
+		if (jsonDocument.isNull()) {
+			qDebug() << "===> please check the string " << section.toLocal8Bit().data();
+		}
+
+
+		QJsonObject jsonObject = jsonDocument.object();
+		JsonArray.append(jsonObject);
+	}
+	
+	return JsonArray;
+
+}
+

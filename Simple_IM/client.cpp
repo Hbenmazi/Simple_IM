@@ -21,37 +21,46 @@ void Client::socketReadyRead()
 	//read the data
 	QString data_string = QString(socket->readAll());
 	qDebug() << "\nMessage: " + data_string;
-	QJsonObject data = getJsonObjectFromString(data_string);//将消息转化成JSON格式
 
-	//判断消息类型
-	switch (data.value("type").toInt())
+	QVector<QJsonObject> dataArray = getJsonObjectArrayFromString(data_string);//将消息转化成JSON格式
+
+	//对其中的每一条消息进行处理
+	for (QJsonObject data : dataArray)
 	{
-	case MsgType::signupSuccess:
-		emit SignUpSuccess();
-		break;
+		//判断消息类型
+		switch (data.value("type").toInt())
+		{
+		case MsgType::signupSuccess:
+			emit SignUpSuccess();
+			break;
 
-	case MsgType::signupFail:
-		emit SignUpFail(data.value("info").toString());
-		break;
+		case MsgType::signupFail:
+			emit SignUpFail(data.value("info").toString());
+			break;
 
-	case MsgType::signinSuccess:
-		emit SignInSuccess(data.value("username").toString());
-		break;
+		case MsgType::signinSuccess:
+			emit SignInSuccess(data.value("username").toString());
+			break;
 
-	case MsgType::signinFail:
-		emit SignInFail(data.value("info").toString());
-		break;
+		case MsgType::signinFail:
+			emit SignInFail(data.value("info").toString());
+			break;
 
-	case MsgType::addContactSuccess:
-		emit AddContactSuccess(data);
-		break;
+		case MsgType::addContactSuccess:
+			emit AddContactSuccess(data);
+			break;
 
-	case MsgType::addContactFail:
-		emit AddContactFail(data);
-		break;
+		case MsgType::addContactFail:
+			emit AddContactFail(data);
+			break;
 
-	default:
-		break;
+		case MsgType::friendListResult:
+			emit ListRefreshed(data);
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 

@@ -57,6 +57,9 @@
     <ClCompile Include="Add.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Add.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="List.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

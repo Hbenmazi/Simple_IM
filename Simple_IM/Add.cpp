@@ -3,11 +3,12 @@
 #include "Client.h"
 #include "qjsonobject.h"
 #include "qjsondocument.h"
-
+#include "List.h"
 Add::Add()
 {
 	connect(Client::getInstance(), SIGNAL(AddContactSuccess(QJsonObject)), this, SIGNAL(AddContactSuccess(QJsonObject)));
 	connect(Client::getInstance(), SIGNAL(AddContactFail(QJsonObject)), this, SIGNAL(AddContactFail(QJsonObject)));
+	connect(this, SIGNAL(AddContactSuccess(QJsonObject)), List::getInstance(), SLOT(RefreshList()));
 }
 
 

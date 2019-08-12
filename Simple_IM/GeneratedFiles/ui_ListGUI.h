@@ -35,6 +35,7 @@ public:
     QWidget *verticalLayoutWidget;
     QVBoxLayout *list_verticalLayout;
     QPushButton *addcontacts_pushButton;
+    QLabel *label_2;
 
     void setupUi(QDialog *ListGUI)
     {
@@ -61,7 +62,7 @@ public:
 
         list_frame = new QFrame(ListGUI);
         list_frame->setObjectName(QStringLiteral("list_frame"));
-        list_frame->setGeometry(QRect(10, 40, 221, 431));
+        list_frame->setGeometry(QRect(10, 60, 221, 411));
         list_frame->setAutoFillBackground(false);
         list_frame->setFrameShape(QFrame::Box);
         list_frame->setFrameShadow(QFrame::Raised);
@@ -77,6 +78,9 @@ public:
         addcontacts_pushButton = new QPushButton(ListGUI);
         addcontacts_pushButton->setObjectName(QStringLiteral("addcontacts_pushButton"));
         addcontacts_pushButton->setGeometry(QRect(134, 480, 101, 23));
+        label_2 = new QLabel(ListGUI);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(10, 40, 71, 20));
 
         retranslateUi(ListGUI);
 
@@ -89,6 +93,7 @@ public:
         label->setText(QApplication::translate("ListGUI", "username:", Q_NULLPTR));
         username_label->setText(QString());
         addcontacts_pushButton->setText(QApplication::translate("ListGUI", "Add Contacts", Q_NULLPTR));
+        label_2->setText(QApplication::translate("ListGUI", "My contacts:", Q_NULLPTR));
     } // retranslateUi
 
 };

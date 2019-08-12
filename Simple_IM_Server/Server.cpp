@@ -6,6 +6,7 @@
 #include "Login.h"
 #include "../Simple_IM/MsgType.h"
 #include "Add.h"
+#include "List.h"
  QMutex Server::mutex;
  Server*  Server::m_instance = NULL;
 
@@ -99,6 +100,16 @@
 	 emit newClientSignIn(user_id, username, client);
  }
 
+ User * Server::SearchUserBySocket(QTcpSocket * socket)
+ {
+	 for (int i = 0; i < allClients->size(); ++i) {
+		 if (allClients->at(i)->getSocket() == socket)
+			 return allClients->at(i);
+	 }
+
+	 return NULL;
+ }
+
 /**
 *Function: newClientConnection
 *Description: 新连接产生后，将套接字放入vector中
@@ -162,11 +173,15 @@ void Server::socketReadyRead()
 	//read the data
 	QString data_string = QString(client->readAll());
 	qDebug() << "\nMessage: " + data_string + " (" + socketIpAddress + ":" + QString::number(port) + ")\n";
-	QJsonObject data = getJsonObjectFromString(data_string);//将消息转化成JSON格式
-	
-	//判断消息类型
-	switch (data.value("type").toInt())
+
+	QVector<QJsonObject> dataArray = getJsonObjectArrayFromString(data_string);//将消息转化成JSON格式
+
+	//对其中的每一条消息进行处理
+	for (QJsonObject data : dataArray)
 	{
+		//判断消息类型
+		switch (data.value("type").toInt())
+		{
 		case MsgType::signup:
 			Register::getInstance()->SignUp(data, client);
 			break;
@@ -176,11 +191,16 @@ void Server::socketReadyRead()
 			break;
 
 		case MsgType::addContact:
-			Add::getInstance()->AddContact(data,client);
+			Add::getInstance()->AddContact(data, client);
+			break;
+
+		case MsgType::getFriendList:
+			List::getInstance()->ReturnList(data, client);
 			break;
 
 		default:
 			break;
+		}
 	}
 
 	

@@ -1,6 +1,7 @@
 #include "LoginGUI.h"
 #include "Simple_IM.h"
 #include "Login.h"
+#include "List.h"
 LoginGUI::LoginGUI(QWidget *parent)
 	: QDialog(parent)
 {

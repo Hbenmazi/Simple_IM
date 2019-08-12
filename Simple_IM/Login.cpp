@@ -3,10 +3,12 @@
 #include"qjsondocument.h"
 #include"MsgType.h"
 #include "Client.h"
+#include"List.h"
 Login::Login()
 {
 	connect(Client::getInstance(), SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess(QString)));
 	connect(Client::getInstance(), SIGNAL(SignInFail(QString)), this, SLOT(onSignInFail(QString)));
+	connect(this, SIGNAL(SignInSuccess(QString)), List::getInstance(), SLOT(RefreshList()));
 }
 
 

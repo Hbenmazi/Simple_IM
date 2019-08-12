@@ -42,6 +42,7 @@ signals:
 	void SignInFail(QString info);
 	void AddContactSuccess(QJsonObject data);
 	void AddContactFail(QJsonObject data);
+	void ListRefreshed(QJsonObject data);
 
 
 	

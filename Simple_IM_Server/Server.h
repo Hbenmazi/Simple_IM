@@ -19,6 +19,7 @@ public:
 	bool SendMessageToClient(QJsonDocument&  msg,QTcpSocket* socket);
 	void StartServer();
 	void RegisterClient(int user_id, QString username, QTcpSocket* client);
+	User* SearchUserBySocket(QTcpSocket* socket);
 
 private:
 	static QMutex mutex;
