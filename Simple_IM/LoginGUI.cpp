@@ -6,10 +6,11 @@ LoginGUI::LoginGUI(QWidget *parent)
 {
 	ui.setupUi(this);
 	SignUpDialog = new Simple_IM(this);
+	listDialog = new ListGUI();
 
 	connect(ui.SignUp_pushButton, &QPushButton::clicked, this, &LoginGUI::onSignUpButtonClicked);
 	connect(ui.SignIn_pushButton, &QPushButton::clicked, this, &LoginGUI::onSignInButtonClicked);
-	connect(&login, SIGNAL(SignInSuccess()), this, SLOT(onSignInSuccess()));
+	connect(&login, SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess(QString)));
 	connect(&login, SIGNAL(SignInFail(QString)), this, SLOT(onSignInFail(QString)));
 }
 
@@ -39,8 +40,11 @@ void LoginGUI::onSignInButtonClicked()
 	login.SignIn(username,passward);
 }
 
-void LoginGUI::onSignInSuccess()
+void LoginGUI::onSignInSuccess(QString username)
 {
+	listDialog->setUsername(username);
+	listDialog->show();
+	this->close();
 }
 
 void LoginGUI::onSignInFail(QString info)

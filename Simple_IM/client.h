@@ -3,6 +3,7 @@
 #include <qtcpsocket.h>
 #include <qmutex.h>
 #include <QString>
+#include "qjsonobject.h"
 
 /**
  * @brief 作为客户端的facade类
@@ -37,8 +38,10 @@ private slots:
 signals:
 	void SignUpSuccess();
 	void SignUpFail(QString info);
-	void SignInSuccess();
+	void SignInSuccess(QString username);
 	void SignInFail(QString info);
+	void AddContactSuccess(QJsonObject data);
+	void AddContactFail(QJsonObject data);
 
 
 	

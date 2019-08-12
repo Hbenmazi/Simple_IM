@@ -62,6 +62,7 @@ bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 
 			QJsonObject msg_json;
 			msg_json.insert("type", MsgType::signupSuccess);
+			msg_json.insert("username", username);
 
 			QJsonDocument msg(msg_json);
 

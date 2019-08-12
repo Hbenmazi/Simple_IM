@@ -13,11 +13,11 @@ public:
 	bool SignIn(QString username, QString password) const;
 
 public slots:
-	void onSignInSuccess();
+	void onSignInSuccess(QString username);
 	void onSignInFail(QString info);
 
 signals:
-	void SignInSuccess();
+	void SignInSuccess(QString username);
 	void SignInFail(QString info);
 
 };

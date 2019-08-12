@@ -5,7 +5,7 @@
 #include "Register.h"
 #include "Login.h"
 #include "../Simple_IM/MsgType.h"
-
+#include "Add.h"
  QMutex Server::mutex;
  Server*  Server::m_instance = NULL;
 
@@ -173,6 +173,10 @@ void Server::socketReadyRead()
 
 		case MsgType::signin:
 			Login::getInstance()->SignIn(data, client);
+			break;
+
+		case MsgType::addContact:
+			Add::getInstance()->AddContact(data,client);
 			break;
 
 		default:

@@ -48,6 +48,15 @@
     <ClCompile Include="Login.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Add.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -63,6 +72,15 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Login.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ListGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AddGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Add.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -84,6 +102,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="LoginGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ListGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AddGUI.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

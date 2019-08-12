@@ -74,6 +74,7 @@ bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client)
 		//向客户端返回登陆成功信息
 		QJsonObject msg_json;
 		msg_json.insert("type", MsgType::signinSuccess);
+		msg_json.insert("username", username);
 
 		QJsonDocument msg(msg_json);
 

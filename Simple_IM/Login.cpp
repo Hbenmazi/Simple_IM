@@ -5,7 +5,7 @@
 #include "Client.h"
 Login::Login()
 {
-	connect(Client::getInstance(), SIGNAL(SignInSuccess()), this, SLOT(onSignInSuccess()));
+	connect(Client::getInstance(), SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess(QString)));
 	connect(Client::getInstance(), SIGNAL(SignInFail(QString)), this, SLOT(onSignInFail(QString)));
 }
 
@@ -47,9 +47,9 @@ bool Login::SignIn(QString username, QString password) const
 	}
 }
 
-void Login::onSignInSuccess()
+void Login::onSignInSuccess(QString username)
 {
-	emit SignInSuccess();
+	emit SignInSuccess(username);
 }
 void Login::onSignInFail(QString info)
 {

@@ -35,11 +35,19 @@ void Client::socketReadyRead()
 		break;
 
 	case MsgType::signinSuccess:
-		emit SignInSuccess();
+		emit SignInSuccess(data.value("username").toString());
 		break;
 
 	case MsgType::signinFail:
 		emit SignInFail(data.value("info").toString());
+		break;
+
+	case MsgType::addContactSuccess:
+		emit AddContactSuccess(data);
+		break;
+
+	case MsgType::addContactFail:
+		emit AddContactFail(data);
 		break;
 
 	default:
