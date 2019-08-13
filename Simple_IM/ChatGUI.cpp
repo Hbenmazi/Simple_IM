@@ -1,5 +1,6 @@
 #include "ChatGUI.h"
 #include "qpushbutton.h"
+#include "qlistwidget.h"
 ChatGUI::ChatGUI(QWidget *parent,QString username)
 	: QDialog(parent)
 {
@@ -60,5 +61,24 @@ void ChatGUI::myButtonClicked()
 
 void ChatGUI::onLogRefreshed(QVector<QJsonObject> dataArray)
 {
-	ui.log_textBrowser->setText("dddd");
+	for (QJsonObject data : dataArray)
+	{
+		QString sender_name = data.value("sender_name").toString();
+		QString time = data.value("time").toString();
+		QString title = sender_name + "   " + time;
+		QString content = data.value("content").toString();
+
+		QListWidgetItem *title_item = new QListWidgetItem;
+		title_item->setText(title);
+		
+		QListWidgetItem *content_item = new QListWidgetItem;
+		content_item->setText(content);
+
+		QListWidgetItem *empty_item = new QListWidgetItem;
+
+		ui.log_listWidget->addItem(title_item);
+		ui.log_listWidget->addItem(content_item);
+		ui.log_listWidget->addItem(empty_item);
+	}
+
 }

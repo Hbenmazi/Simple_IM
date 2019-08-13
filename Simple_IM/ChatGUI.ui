@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>ChatGUI</string>
   </property>
-  <widget class="QTextBrowser" name="log_textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>461</width>
-     <height>261</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
@@ -73,6 +63,16 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="log_listWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>461</width>
+     <height>261</height>
+    </rect>
    </property>
   </widget>
  </widget>

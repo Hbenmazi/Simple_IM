@@ -17,8 +17,8 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 
 QT_BEGIN_NAMESPACE
@@ -26,20 +26,17 @@ QT_BEGIN_NAMESPACE
 class Ui_ChatGUI
 {
 public:
-    QTextBrowser *log_textBrowser;
     QFrame *line;
     QTextEdit *msg_textEdit;
     QPushButton *send_pushButton;
     QLabel *peerName_label;
+    QListWidget *log_listWidget;
 
     void setupUi(QDialog *ChatGUI)
     {
         if (ChatGUI->objectName().isEmpty())
             ChatGUI->setObjectName(QStringLiteral("ChatGUI"));
         ChatGUI->resize(484, 489);
-        log_textBrowser = new QTextBrowser(ChatGUI);
-        log_textBrowser->setObjectName(QStringLiteral("log_textBrowser"));
-        log_textBrowser->setGeometry(QRect(10, 60, 461, 261));
         line = new QFrame(ChatGUI);
         line->setObjectName(QStringLiteral("line"));
         line->setGeometry(QRect(0, 30, 491, 16));
@@ -55,6 +52,9 @@ public:
         peerName_label->setObjectName(QStringLiteral("peerName_label"));
         peerName_label->setGeometry(QRect(10, 20, 111, 16));
         peerName_label->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        log_listWidget = new QListWidget(ChatGUI);
+        log_listWidget->setObjectName(QStringLiteral("log_listWidget"));
+        log_listWidget->setGeometry(QRect(10, 60, 461, 261));
 
         retranslateUi(ChatGUI);
 
