@@ -63,6 +63,9 @@
     <ClCompile Include="ChatGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ChatGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Chat.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

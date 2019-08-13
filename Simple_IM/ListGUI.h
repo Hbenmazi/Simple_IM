@@ -22,8 +22,8 @@ public slots:
 
 private:
 	Ui::ListGUI ui;
-	AddGUI* add;//添加好友的对话框
-	ChatGUI* chat;//聊天对话框
+	AddGUI* addDialog;//添加好友的对话框
+	ChatGUI* chatDialog;//聊天对话框
 	QString username = "";
 	QVector<QPushButton*> friendlist;
 

@@ -4,6 +4,11 @@
 #include<qtcpserver.h>
 #include"qstring.h"
 #include"User.h"
+#include"Register.h"
+#include"Login.h"
+#include"Add.h"
+#include"List.h"
+#include"Log.h"
 /**
  * @brief 作为服务器的facade类
  * 描述：使用单例模式，服务器端中其它类通过Server类与客户端通信，同时服务器
@@ -25,8 +30,15 @@ private:
 	static QMutex mutex;
 	static Server* m_instance;
 
-	QTcpServer*             chatServer;//用于监听tcp连接的建立
-	QVector<User*>*          allClients;//目前已经登陆的用户
+	QTcpServer* chatServer;//用于监听tcp连接的建立
+	QVector<User*>* allClients;//目前已经登陆的用户
+
+	Register* reg;
+	Login* login;
+	Add* add;
+	List* list;
+	Log* log;
+
 
 	Server();
 	~Server();

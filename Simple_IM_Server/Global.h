@@ -11,9 +11,9 @@
 *return:转化为QJsonObject对象的JSON数据
 */
 QJsonObject getJsonObjectFromString(const QString jsonString) {
-	QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toLocal8Bit().data());
+	QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
 	if (jsonDocument.isNull()) {
-		qDebug() << "===> please check the string " << jsonString.toLocal8Bit().data();
+		qDebug() << "===> please check the string " << jsonString.toUtf8();
 	}
 	QJsonObject jsonObject = jsonDocument.object();
 	return jsonObject;
@@ -35,9 +35,9 @@ QVector<QJsonObject> getJsonObjectArrayFromString(const QString jsonString) {
 		QString section = jsonString.section('}', k, k);
 		section.append('}');
 
-		QJsonDocument jsonDocument = QJsonDocument::fromJson(section.toLocal8Bit().data());
+		QJsonDocument jsonDocument = QJsonDocument::fromJson(section.toUtf8());
 		if (jsonDocument.isNull()) {
-			qDebug() << "===> please check the string " << section.toLocal8Bit().data();
+			qDebug() << "===> please check the string " << section.toUtf8();
 		}
 
 

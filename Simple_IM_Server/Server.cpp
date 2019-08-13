@@ -73,6 +73,12 @@
 	
 	 allClients = new QVector<User*>;
 	 chatServer = new QTcpServer();
+	 
+	 reg = Register::getInstance();
+	 login = Login::getInstance();
+	 add = Add::getInstance();
+	 list = List::getInstance();
+	 log = Log::getInstance();
 
 	 //设置最大连接数量为10
 	 chatServer->setMaxPendingConnections(10);
@@ -183,19 +189,23 @@ void Server::socketReadyRead()
 		switch (data.value("type").toInt())
 		{
 		case MsgType::signup:
-			Register::getInstance()->SignUp(data, client);
+			reg->SignUp(data, client);
 			break;
 
 		case MsgType::signin:
-			Login::getInstance()->SignIn(data, client);
+			login->SignIn(data, client);
 			break;
 
 		case MsgType::addContact:
-			Add::getInstance()->AddContact(data, client);
+			add->AddContact(data, client);
 			break;
 
 		case MsgType::getFriendList:
-			List::getInstance()->ReturnList(data, client);
+			list->ReturnList(data, client);
+			break;
+
+		case MsgType::getLog:
+			log->ReturnLog(data, client);
 			break;
 
 		default:

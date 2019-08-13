@@ -33,13 +33,13 @@ bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 	QSqlQuery query(db->getDB());
 
 	//获取发出邀请一方的user_id
-	query.exec("select user_id from user where username = \" " + username + " \" ");
+	query.exec("select user_id from user where username = \"" + username + "\"");
 	query.next();//指向第一条记录
 	QString sender_id = query.value(0).toString();
 	query.finish();
 
 	//获取接收方的user_id
-	query.exec("select user_id from user where username = \" " + targetUsername + " \" ");
+	query.exec("select user_id from user where username = \"" + targetUsername + "\"");
 	query.next();//指向第一条记录
 	QString recv_id = query.value(0).toString();
 	query.finish();
@@ -69,7 +69,7 @@ bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 	}
 	
 	//检查好友关系是否已经存在
-	query.exec("select * from friendship where sender_id = \" " + sender_id + " \" "+"and recv_id = \" " + recv_id + "\"");
+	query.exec("select * from friendship where sender_id = \"" + sender_id + "\""+"and recv_id = \"" + recv_id + "\"");
 	if (query.size())
 	{
 		query.finish();

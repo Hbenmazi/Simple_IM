@@ -40,7 +40,7 @@ bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client)
 	QSqlQuery query(db->getDB());
 
 	//先查询用户名是否已经注册
-	if (query.exec("select * from user where username = \" " + username + " \" ") == false)//查询失败
+	if (query.exec("select * from user where username = \"" + username + "\"") == false)//查询失败
 	{
 		//打印错误信息
 		qDebug() << "Server Error(signin,select):";

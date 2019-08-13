@@ -3,6 +3,7 @@
 #include <QDialog>
 #include "ui_ChatGUI.h"
 #include "qstring.h"
+#include "Chat.h"
 class ChatGUI : public QDialog
 {
 	Q_OBJECT
@@ -19,9 +20,17 @@ public:
 
 public slots:
 	void myButtonClicked();
+	void onNewMsgSended();
+	void onLogRefreshed(QVector<QJsonObject> dataArray);
 
 private:
 	Ui::ChatGUI ui;
 	QString username = "";
 	QString peerUsername = "";
+	Chat* chat;
+
+signals:
+	void NewMsgSended(QString username,QString targetUsername,QString content);
+
+	
 };

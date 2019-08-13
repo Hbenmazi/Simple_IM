@@ -29,7 +29,7 @@ public:
     QTextBrowser *log_textBrowser;
     QFrame *line;
     QTextEdit *msg_textEdit;
-    QPushButton *pushButton;
+    QPushButton *send_pushButton;
     QLabel *peerName_label;
 
     void setupUi(QDialog *ChatGUI)
@@ -48,9 +48,9 @@ public:
         msg_textEdit = new QTextEdit(ChatGUI);
         msg_textEdit->setObjectName(QStringLiteral("msg_textEdit"));
         msg_textEdit->setGeometry(QRect(10, 350, 461, 91));
-        pushButton = new QPushButton(ChatGUI);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(400, 450, 75, 23));
+        send_pushButton = new QPushButton(ChatGUI);
+        send_pushButton->setObjectName(QStringLiteral("send_pushButton"));
+        send_pushButton->setGeometry(QRect(400, 450, 75, 23));
         peerName_label = new QLabel(ChatGUI);
         peerName_label->setObjectName(QStringLiteral("peerName_label"));
         peerName_label->setGeometry(QRect(10, 20, 111, 16));
@@ -64,7 +64,7 @@ public:
     void retranslateUi(QDialog *ChatGUI)
     {
         ChatGUI->setWindowTitle(QApplication::translate("ChatGUI", "ChatGUI", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("ChatGUI", "Send", Q_NULLPTR));
+        send_pushButton->setText(QApplication::translate("ChatGUI", "Send", Q_NULLPTR));
         peerName_label->setText(QString());
     } // retranslateUi
 

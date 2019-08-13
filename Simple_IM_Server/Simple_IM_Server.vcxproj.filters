@@ -57,6 +57,9 @@
     <ClCompile Include="List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM_Server.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="List.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Log.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

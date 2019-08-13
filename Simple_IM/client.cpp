@@ -19,49 +19,9 @@ void Client::socketDisconnected()
 void Client::socketReadyRead()
 {
 	//read the data
-	QString data_string = QString(socket->readAll());
-	qDebug() << "\nMessage: " + data_string;
-
-	QVector<QJsonObject> dataArray = getJsonObjectArrayFromString(data_string);//将消息转化成JSON格式
-
-	//对其中的每一条消息进行处理
-	for (QJsonObject data : dataArray)
-	{
-		//判断消息类型
-		switch (data.value("type").toInt())
-		{
-		case MsgType::signupSuccess:
-			emit SignUpSuccess();
-			break;
-
-		case MsgType::signupFail:
-			emit SignUpFail(data.value("info").toString());
-			break;
-
-		case MsgType::signinSuccess:
-			emit SignInSuccess(data.value("username").toString());
-			break;
-
-		case MsgType::signinFail:
-			emit SignInFail(data.value("info").toString());
-			break;
-
-		case MsgType::addContactSuccess:
-			emit AddContactSuccess(data);
-			break;
-
-		case MsgType::addContactFail:
-			emit AddContactFail(data);
-			break;
-
-		case MsgType::friendListResult:
-			emit ListRefreshed(dataArray);
-			break;
-
-		default:
-			break;
-		}
-	}
+	QString msg = QString(socket->readAll());
+	qDebug() << "\nMessage: " + msg;
+	handleMeaasge(msg);
 }
 
 
@@ -116,6 +76,55 @@ bool Client::SendMessageToServer(QJsonDocument& msg)
 	}
 
 
+}
+
+void Client::handleMeaasge(QString msg)
+{
+	QVector<QJsonObject> dataArray = getJsonObjectArrayFromString(msg);//将消息转化成JSON格式
+
+	//对其中的每一条消息进行处理
+	for (QJsonObject data : dataArray)
+	{
+		//判断消息类型
+		switch (data.value("type").toInt())
+		{
+		case MsgType::signupSuccess:
+			emit SignUpSuccess();
+			break;
+
+		case MsgType::signupFail:
+			emit SignUpFail(data.value("info").toString());
+			break;
+
+		case MsgType::signinSuccess:
+			emit SignInSuccess(data.value("username").toString());
+			break;
+
+		case MsgType::signinFail:
+			emit SignInFail(data.value("info").toString());
+			break;
+
+		case MsgType::addContactSuccess:
+			emit AddContactSuccess(data);
+			break;
+
+		case MsgType::addContactFail:
+			emit AddContactFail(data);
+			break;
+
+		case MsgType::friendListResult:
+			emit ListRefreshed(dataArray);
+			break;
+
+		case MsgType::logResult:
+			emit LogRefreshed(dataArray);
+			return ;
+			break;
+
+		default:
+			break;
+		}
+	}
 }
 
 /**

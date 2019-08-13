@@ -5,9 +5,9 @@ ListGUI::ListGUI(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	add = new AddGUI(this);
-	chat =  new ChatGUI(this);
-	add->setModal(true);
+	addDialog = new AddGUI(this);
+	chatDialog = new ChatGUI(this);
+	addDialog->setModal(true);
 	connect(ui.addcontacts_pushButton, SIGNAL(clicked()), this, SLOT(on_AddButton_clicked()));
 	connect(List::getInstance(), SIGNAL(ListRefreshed(QVector<QJsonObject>)),this, SLOT(onListRefreshed(QVector<QJsonObject>)));
 }
@@ -19,6 +19,7 @@ ListGUI::~ListGUI()
 void ListGUI::setUsername(QString username)
 {
 	this->username = username;
+	this->chatDialog->setUsername(username);
 	ui.username_label->setText(username);
 }
 
@@ -41,7 +42,7 @@ void ListGUI::onListRefreshed(QVector<QJsonObject> userArray)
 	for (QJsonObject user : userArray)
 	{
 		QPushButton* button = new QPushButton(this);
-		connect(button, SIGNAL(clicked()), chat, SLOT(myButtonClicked()));
+		connect(button, SIGNAL(clicked()), chatDialog, SLOT(myButtonClicked()));
 
 		button->setText(user.value("username").toString());
 		friendlist.append(button);
@@ -52,5 +53,5 @@ void ListGUI::onListRefreshed(QVector<QJsonObject> userArray)
 
 void ListGUI::on_AddButton_clicked()
 {
-	add->show();
+	addDialog->show();
 }

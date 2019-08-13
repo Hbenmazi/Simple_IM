@@ -46,7 +46,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="send_pushButton">
    <property name="geometry">
     <rect>
      <x>400</x>

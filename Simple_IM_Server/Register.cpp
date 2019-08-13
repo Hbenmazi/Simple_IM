@@ -40,7 +40,7 @@ bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 	QSqlQuery query(db->getDB());
 
 	//先查询用户名是否已经被注册
-	if (query.exec("select * from user where username = \" " +username+ " \" ") == false)//查询失败
+	if (query.exec("select * from user where username = \"" +username+ "\"") == false)//查询失败
 	{
 		//打印错误信息
 		qDebug() << "Server Error(signup,select):";
@@ -54,7 +54,7 @@ bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 		query.finish();//先完成上一次查询
 
 		//更新user表,向客户端返回注册成功消息
-		if (query.exec("insert user values( null,\" " + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
+		if (query.exec("insert user values( null,\"" + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
 		{
 			qDebug() << "Server:";
 			qDebug() << "sign up successfully";

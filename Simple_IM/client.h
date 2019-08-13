@@ -20,6 +20,7 @@ public:
 	QTcpSocket* getSocket() const;
 
 	bool SendMessageToServer(QJsonDocument&  msg);
+	void handleMeaasge(QString msg);
 
 private:
 	static Client* m_instance;
@@ -43,6 +44,7 @@ signals:
 	void AddContactSuccess(QJsonObject data);
 	void AddContactFail(QJsonObject data);
 	void ListRefreshed(QVector<QJsonObject> dataArray);
+	void LogRefreshed(QVector<QJsonObject> dataArray);
 
 
 	
