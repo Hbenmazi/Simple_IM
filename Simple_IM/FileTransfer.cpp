@@ -98,10 +98,18 @@ void FileTransfer::onFileSocketReadyRead(QByteArray data)
 {
 	if (byteReceived == 0)  //才刚开始接收数据，此数据为文件信息
 	{
+		QDir *folder = new QDir;
+		//判断创建文件夹是否存在
+		bool exist = folder->exists("D:/File");
+
+		if (!exist)//创建文件夹
+			bool ok = folder->mkdir("D:/File");
+		
+	
 		QString temp;
 		QDataStream in(data);
 		in >> totalSize_in >> byteReceived >>temp>>peerUsername>> fileName_in;
-		//fileName_in = "/Files/" + fileName_in;
+		fileName_in = "D:/File/" + fileName_in;
 		newFile = new QFile(fileName_in);
 		bool isopen = newFile->open(QFile::WriteOnly);
 		qDebug() << "isopen" << isopen;
