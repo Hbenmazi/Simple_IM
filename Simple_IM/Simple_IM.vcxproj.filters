@@ -66,6 +66,9 @@
     <ClCompile Include="Chat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileTransfer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -101,6 +104,9 @@
     <QtMoc Include="Chat.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="FileTransfer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Simple_IM.qrc">
@@ -129,6 +135,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ChatGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="FileTransfer.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

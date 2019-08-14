@@ -48,6 +48,23 @@ void Chat::onLogRefreshed(QVector<QJsonObject> dataArray)
 	emit LogRefreshed(dataArray);
 }
 
+void Chat::onTransferFileButtonClicked(QString username)
+{
+	//使用JSON格式传递注册请求
+	QJsonObject msg_json;
+	msg_json.insert("type", MsgType::preFileTran);
+	msg_json.insert("username", username);
+
+	//打包为QJsonDocument格式
+	QJsonDocument msg(msg_json);
+
+	//获取facade
+	Client* myClient = Client::getInstance();
+	myClient->SendMessageToFileServer(msg);
+
+
+}
+
 
 void Chat::onNewMsgSended(QString username, QString targetUsername, QString content)
 {

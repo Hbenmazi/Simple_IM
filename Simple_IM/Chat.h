@@ -15,7 +15,8 @@ public:
 public slots:
 	void onNewMsgSended(QString username, QString targetUsername, QString content);
 	void onLogRefreshed(QVector<QJsonObject> dataArray);
-
+	void onTransferFileButtonClicked(QString username);
+	
 signals:
 	void LogRefreshed(QVector<QJsonObject> dataArray);
 

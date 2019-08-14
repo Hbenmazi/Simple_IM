@@ -32,7 +32,9 @@ private:
 	static Server* m_instance;
 
 	QTcpServer* chatServer;//用于监听tcp连接的建立
+	QTcpServer* fileServer;//用于传输文件
 	QVector<User*>* allClients;//目前已经登陆的用户
+	QString peerUsername;//文件传输时接收方的用户名
 
 	Register* reg;
 	Login* login;
@@ -48,7 +50,10 @@ private slots:
 	void newClientConnection();
 	void socketDisconnected();
 	void socketReadyRead();
-	void socketStateChanged(QAbstractSocket::SocketState stste);
+	void socketStateChanged(QAbstractSocket::SocketState state);
+	void fileSocketDisconnected();
+	void fileSocketReadyRead();
+	void fileSocketStateChanged(QAbstractSocket::SocketState state);
 
 signals:
 	void newClientSignIn(int user_id, QString username, QTcpSocket* client);

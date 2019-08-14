@@ -73,6 +73,7 @@
 	
 	 allClients = new QVector<User*>;
 	 chatServer = new QTcpServer();
+	 fileServer = new QTcpServer();
 	 
 	 reg = Register::getInstance();
 	 login = Login::getInstance();
@@ -85,6 +86,7 @@
 
 	 //如果有新的连接建立则交给newClientConnection函数处理
 	 connect(chatServer, SIGNAL(newConnection()), this, SLOT(newClientConnection()));
+	 connect(fileServer, SIGNAL(newConnection()), this, SLOT(newClientConnection()));
 	 
 	 //开始监听
 	 if (chatServer->listen(QHostAddress::Any, 8001))
@@ -94,6 +96,15 @@
 	 else
 	 {
 		 qDebug() << "\nServer failed to start. Error: " + chatServer->errorString()+"\n";
+	 }
+
+	 if (fileServer->listen(QHostAddress::Any, 8002))
+	 {
+		 qDebug() << "\nFile Server has started. Listening to port 8002.\n";
+	 }
+	 else
+	 {
+		 qDebug() << "\nFile Server failed to start. Error: " + chatServer->errorString() + "\n";
 	 }
 
  }
@@ -127,18 +138,30 @@
 */
  void Server::newClientConnection()
  {
-	 
-	 QTcpSocket* client = chatServer->nextPendingConnection();
+	 QTcpServer* server = qobject_cast<QTcpServer*>(QObject::sender());
 
-	 //获取客户端的IP地址和端口号
-	 QString ipAddress = client->peerAddress().toString();
-	 int port = client->peerPort();
-	 
-	 connect(client, &QTcpSocket::disconnected, this, &Server::socketDisconnected);
-	 connect(client, &QTcpSocket::readyRead, this, &Server::socketReadyRead);
-	 connect(client, &QTcpSocket::stateChanged, this, &Server::socketStateChanged);
-	
-	 qDebug() << "\nSocket connected from " + ipAddress + ":" + QString::number(port)<<"\n";
+	 if (server == chatServer)
+	 {
+		 QTcpSocket* client = chatServer->nextPendingConnection();
+
+		 //获取客户端的IP地址和端口号
+		 QString ipAddress = client->peerAddress().toString();
+		 int port = client->peerPort();
+
+		 connect(client, &QTcpSocket::disconnected, this, &Server::socketDisconnected);
+		 connect(client, &QTcpSocket::readyRead, this, &Server::socketReadyRead);
+		 connect(client, &QTcpSocket::stateChanged, this, &Server::socketStateChanged);
+
+		 qDebug() << "\nSocket connected from " + ipAddress + ":" + QString::number(port) << "\n";
+	 }
+	 else
+	 {
+		 QTcpSocket* client = fileServer->nextPendingConnection();
+
+		 connect(client, &QTcpSocket::disconnected, this, &Server::fileSocketDisconnected);
+		 connect(client, &QTcpSocket::readyRead, this, &Server::fileSocketReadyRead);
+		 connect(client, &QTcpSocket::stateChanged, this, &Server::fileSocketStateChanged);
+	 }
  }
  
 
@@ -252,6 +275,93 @@ void Server::socketStateChanged(QAbstractSocket::SocketState state)
 	else if (state == QAbstractSocket::ListeningState)
 		desc = "For internal use only.";
 	qDebug() << "\nSocket state changed (" + socketIpAddress + ":" + QString::number(port) + "): " + desc+"\n";
+}
+
+void Server::fileSocketDisconnected()
+{
+	//nothing but display info in console
+	QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
+	QString socketIpAddress = client->peerAddress().toString();
+	int port = client->peerPort();
+	qDebug() << "File Socket disconnected from " + socketIpAddress + ":" + QString::number(port);
+}
+
+void Server::fileSocketReadyRead()
+{
+	QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
+
+	//get ip and port
+	QString socketIpAddress = client->peerAddress().toString();
+	int port = client->peerPort();
+
+	//read the data
+	QByteArray data_byte = client->readAll();
+
+	QJsonObject data = QJsonDocument::fromJson(data_byte).object();
+
+	//对其中的每一条消息进行处理
+	
+	//判断消息类型
+	switch (data.value("type").toInt())
+	{
+	case MsgType::preFileTran:
+		for (User* user : *getAllClients())
+		{
+			if (user->getUsername() == data.value("username").toString())
+			{
+				user->setFileSocket(client);
+			}
+		}
+		break;
+
+	default:
+		QDataStream in(data_byte);
+		qint64 totalSize;  
+		qint64 byteReceived;  
+		QString fileName;
+		QString ifHeader;
+		
+		in >> totalSize >> byteReceived >> ifHeader;
+
+		if (ifHeader == "header")
+			in>> peerUsername >> fileName;
+
+		for (User* user : *allClients)
+		{
+			if (user->getUsername() == peerUsername)
+				user->getFileSocket()->write(data_byte);
+		}
+		break;
+	}
+	
+	
+}
+
+void Server::fileSocketStateChanged(QAbstractSocket::SocketState state)
+{
+	QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
+
+	//get ip and port
+	QString socketIpAddress = client->peerAddress().toString();
+	int port = client->peerPort();
+	QString desc;
+
+	// nothing but display info in console according to new state
+	if (state == QAbstractSocket::UnconnectedState)
+		desc = "The socket is not connected.";
+	else if (state == QAbstractSocket::HostLookupState)
+		desc = "The socket is performing a host name lookup.";
+	else if (state == QAbstractSocket::ConnectingState)
+		desc = "The socket has started establishing a connection.";
+	else if (state == QAbstractSocket::ConnectedState)
+		desc = "A connection is established.";
+	else if (state == QAbstractSocket::BoundState)
+		desc = "The socket is bound to an address and port.";
+	else if (state == QAbstractSocket::ClosingState)
+		desc = "The socket is about to close (data may still be waiting to be written).";
+	else if (state == QAbstractSocket::ListeningState)
+		desc = "For internal use only.";
+	qDebug() << "\nSocket state changed (" + socketIpAddress + ":" + QString::number(port) + "): " + desc + "\n";
 }
 
 Server::Server()

@@ -31,6 +31,7 @@ public:
     QPushButton *send_pushButton;
     QLabel *peerName_label;
     QListWidget *log_listWidget;
+    QPushButton *transerFile_pushButton;
 
     void setupUi(QDialog *ChatGUI)
     {
@@ -55,6 +56,9 @@ public:
         log_listWidget = new QListWidget(ChatGUI);
         log_listWidget->setObjectName(QStringLiteral("log_listWidget"));
         log_listWidget->setGeometry(QRect(10, 60, 461, 261));
+        transerFile_pushButton = new QPushButton(ChatGUI);
+        transerFile_pushButton->setObjectName(QStringLiteral("transerFile_pushButton"));
+        transerFile_pushButton->setGeometry(QRect(10, 450, 101, 23));
 
         retranslateUi(ChatGUI);
 
@@ -66,6 +70,7 @@ public:
         ChatGUI->setWindowTitle(QApplication::translate("ChatGUI", "ChatGUI", Q_NULLPTR));
         send_pushButton->setText(QApplication::translate("ChatGUI", "Send", Q_NULLPTR));
         peerName_label->setText(QString());
+        transerFile_pushButton->setText(QApplication::translate("ChatGUI", "Transfer File", Q_NULLPTR));
     } // retranslateUi
 
 };

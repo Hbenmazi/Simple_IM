@@ -31,6 +31,11 @@ void User::setSocket(QTcpSocket * socket)
 	this->socket = socket;
 }
 
+void User::setFileSocket(QTcpSocket * fileSocket)
+{
+	this->fileSocket = fileSocket;
+}
+
 int User::getUserId() const
 {
 	return user_id;
@@ -44,4 +49,9 @@ QString User::getUsername() const
 QTcpSocket * User::getSocket() const
 {
 	return socket;
+}
+
+QTcpSocket * User::getFileSocket() const
+{
+	return fileSocket;
 }

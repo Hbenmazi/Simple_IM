@@ -6,6 +6,39 @@
 Client* Client::m_instance = NULL;
 QMutex Client::mutex;
 
+/**
+*Function:       Client
+*Description:    构造函数，初始化套接字并与服务器进行连接
+*/
+Client::Client()
+{
+	connect(this, SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess()));
+	if (!socket)
+	{
+		socket = new QTcpSocket();
+		connect(socket, SIGNAL(connected()), this, SLOT(socketConnected()));
+		connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+		connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
+
+		socket->connectToHost("127.0.0.1", 8001);
+	}
+
+	//filesocket在登陆成功后才连接服务器
+	fileSocket = new QTcpSocket();
+	connect(fileSocket, SIGNAL(readyRead()), this, SLOT(fileSocketReadyRead()));
+}
+
+/**
+*Function:       ~Client
+*Description:    析构函数，断开连接
+*/
+Client::~Client()
+{
+	if (!socket)
+	{
+		socket->disconnectFromHost();
+	}
+}
 void Client::socketConnected()
 {
 	qDebug() << "Connected to server.";
@@ -22,6 +55,19 @@ void Client::socketReadyRead()
 	QString msg = QString(socket->readAll());
 	qDebug() << "\nMessage: " + msg;
 	handleMeaasge(msg);
+}
+
+void Client::fileSocketReadyRead()
+{
+	QByteArray data = fileSocket->readAll();
+	emit FileSocketReadyRead(data);
+	
+}
+
+void Client::onSignInSuccess()
+{
+	QTcpSocket* fileSocket = getFileSocket();
+	fileSocket->connectToHost("127.0.0.1", 8002);
 }
 
 
@@ -42,6 +88,11 @@ Client * Client::getInstance()
 QTcpSocket * Client::getSocket() const
 {
 	return socket;
+}
+
+QTcpSocket * Client::getFileSocket() const
+{
+	return fileSocket;
 }
 
 /**
@@ -66,6 +117,33 @@ bool Client::SendMessageToServer(QJsonDocument& msg)
 		qDebug() << "Client:";
 		qDebug() << "fail to send msg";
 		qDebug() << socket->errorString();
+		return false;
+	}
+	else
+	{
+		qDebug() << "Client:";
+		qDebug() << "success to send msg";
+		return true;
+	}
+
+
+}
+
+bool Client::SendMessageToFileServer(QJsonDocument& msg)
+{
+	QTcpSocket* fileSocket = getFileSocket();
+	fileSocket->connectToHost("127.0.0.1", 8002);
+
+	//将数据从msg中取出
+	QByteArray data = msg.toJson();
+
+	//将数据写入套接字
+	if (fileSocket->write(data) == -1)
+	{
+		//如果发送失败返回错误信息
+		qDebug() << "Client:";
+		qDebug() << "fail to send msg";
+		qDebug() << fileSocket->errorString();
 		return false;
 	}
 	else
@@ -127,30 +205,3 @@ void Client::handleMeaasge(QString msg)
 	}
 }
 
-/**
-*Function:       Client
-*Description:    构造函数，初始化套接字并与服务器进行连接
-*/
-Client::Client()
-{
-	if (!socket)
-	{
-		socket = new QTcpSocket();
-		connect(socket, SIGNAL(connected()), this, SLOT(socketConnected()));
-		connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
-		connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
-
-		socket->connectToHost("127.0.0.1", 8001);
-	}
-}
-/**
-*Function:       ~Client
-*Description:    析构函数，断开连接
-*/
-Client::~Client()
-{
-	if (!socket)
-	{
-		socket->disconnectFromHost();
-	}
-}

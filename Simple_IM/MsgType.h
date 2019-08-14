@@ -9,6 +9,7 @@ enum MsgType
 	getFriendList,
 	getLog,
 	sendMsg,
+	preFileTran,
 
 	/*server to client*/
 	signupSuccess,

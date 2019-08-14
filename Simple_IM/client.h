@@ -18,23 +18,28 @@ class Client :
 public:
 	static Client* getInstance();
 	QTcpSocket* getSocket() const;
+	QTcpSocket* getFileSocket() const;
 
 	bool SendMessageToServer(QJsonDocument&  msg);
+	bool SendMessageToFileServer(QJsonDocument& msg);
 	void handleMeaasge(QString msg);
 
 private:
 	static Client* m_instance;
 	static QMutex mutex;
 	QTcpSocket* socket = NULL; //与服务器进行通信的TCP套接字
+	QTcpSocket* fileSocket = NULL;
 
 	
 	Client();
 	~Client();
 	
-private slots:
+public slots:
 	void socketConnected();
 	void socketDisconnected();
 	void socketReadyRead();
+	void fileSocketReadyRead();
+	void onSignInSuccess();
 
 signals:
 	void SignUpSuccess();
@@ -45,6 +50,7 @@ signals:
 	void AddContactFail(QJsonObject data);
 	void ListRefreshed(QVector<QJsonObject> dataArray);
 	void LogRefreshed(QVector<QJsonObject> dataArray);
+	void FileSocketReadyRead(QByteArray data);
 
 
 	

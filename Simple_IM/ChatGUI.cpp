@@ -1,13 +1,16 @@
 #include "ChatGUI.h"
 #include "qpushbutton.h"
 #include "qlistwidget.h"
+#include"Client.h"
 ChatGUI::ChatGUI(QWidget *parent,QString username)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
 	setUsername(username);
 	chat = new Chat();
+	fileTransfer = new FileTransfer();
 	connect(ui.send_pushButton,SIGNAL(clicked()),this,SLOT(onNewMsgSended()));
+	connect(ui.transerFile_pushButton, SIGNAL(clicked()),this,SLOT(onTransferFileButtonClicked()));
 	connect(this,SIGNAL(NewMsgSended(QString , QString , QString )),chat,SLOT(onNewMsgSended(QString, QString, QString)));
 	connect(chat, SIGNAL(LogRefreshed(QVector<QJsonObject>)), this, SLOT(onLogRefreshed(QVector<QJsonObject>)));
 }
@@ -24,6 +27,8 @@ void ChatGUI::setUsername(QString username)
 void ChatGUI::setPeerUsername(QString peerUsername)
 {
 	this->peerUsername = peerUsername;
+	fileTransfer->setPeerUsername(peerUsername);
+	
 }
 
 QString ChatGUI::getUsername() const
@@ -87,5 +92,11 @@ void ChatGUI::displayLog(QJsonObject data)
 	ui.log_listWidget->addItem(title_item);
 	ui.log_listWidget->addItem(content_item);
 	ui.log_listWidget->addItem(empty_item);
+}
+
+void ChatGUI::onTransferFileButtonClicked()
+{
+	chat->onTransferFileButtonClicked(getUsername());
+	fileTransfer->show();
 }
 
