@@ -54,6 +54,7 @@ void ChatGUI::myButtonClicked()
 	ui.peerName_label->setText(button->text());
 
 	//Ë¢ÐÂÁÄÌì¼ÇÂ¼
+	ui.log_listWidget->clear();
 	chat->RefreshLog(getUsername(),getPeerUsername());
 	this->show();
 }
@@ -63,22 +64,28 @@ void ChatGUI::onLogRefreshed(QVector<QJsonObject> dataArray)
 {
 	for (QJsonObject data : dataArray)
 	{
-		QString sender_name = data.value("sender_name").toString();
-		QString time = data.value("time").toString();
-		QString title = sender_name + "   " + time;
-		QString content = data.value("content").toString();
-
-		QListWidgetItem *title_item = new QListWidgetItem;
-		title_item->setText(title);
-		
-		QListWidgetItem *content_item = new QListWidgetItem;
-		content_item->setText(content);
-
-		QListWidgetItem *empty_item = new QListWidgetItem;
-
-		ui.log_listWidget->addItem(title_item);
-		ui.log_listWidget->addItem(content_item);
-		ui.log_listWidget->addItem(empty_item);
+		displayLog(data);
 	}
 
 }
+
+void ChatGUI::displayLog(QJsonObject data)
+{
+	QString sender_name = data.value("sender_name").toString();
+	QString time = data.value("time").toString();
+	QString title = sender_name + "   " + time;
+	QString content = data.value("content").toString();
+
+	QListWidgetItem *title_item = new QListWidgetItem;
+	title_item->setText(title);
+
+	QListWidgetItem *content_item = new QListWidgetItem;
+	content_item->setText(content);
+
+	QListWidgetItem *empty_item = new QListWidgetItem;
+
+	ui.log_listWidget->addItem(title_item);
+	ui.log_listWidget->addItem(content_item);
+	ui.log_listWidget->addItem(empty_item);
+}
+

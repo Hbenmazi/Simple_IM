@@ -116,6 +116,11 @@
 	 return NULL;
  }
 
+ QVector<User*>* Server::getAllClients()
+ {
+	 return allClients;
+ }
+
 /**
 *Function: newClientConnection
 *Description: 新连接产生后，将套接字放入vector中
@@ -206,6 +211,10 @@ void Server::socketReadyRead()
 
 		case MsgType::getLog:
 			log->ReturnLog(data, client);
+			break;
+
+		case MsgType::sendMsg:
+			log->SendNewMsg(data, client);
 			break;
 
 		default:

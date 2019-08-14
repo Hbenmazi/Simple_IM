@@ -18,6 +18,7 @@ class Log :public QObject
 public:
 	static Log* getInstance();
 	void ReturnLog(QJsonObject data, QTcpSocket* client);
+	void SendNewMsg(QJsonObject data, QTcpSocket* client);
 
 
 private:

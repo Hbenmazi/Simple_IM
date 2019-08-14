@@ -25,6 +25,7 @@ public:
 	void StartServer();
 	void RegisterClient(int user_id, QString username, QTcpSocket* client);
 	User* SearchUserBySocket(QTcpSocket* socket);
+	QVector<User*>*  getAllClients();
 
 private:
 	static QMutex mutex;

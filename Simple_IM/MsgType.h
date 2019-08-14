@@ -8,6 +8,7 @@ enum MsgType
 	addContact,
 	getFriendList,
 	getLog,
+	sendMsg,
 
 	/*server to client*/
 	signupSuccess,

@@ -48,8 +48,36 @@ void Chat::onLogRefreshed(QVector<QJsonObject> dataArray)
 	emit LogRefreshed(dataArray);
 }
 
-///TODOTODOTODOTODOTODOODODODODODODODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
 void Chat::onNewMsgSended(QString username, QString targetUsername, QString content)
 {
+	//使用JSON格式传递注册请求
+	QJsonObject msg_json;
+	msg_json.insert("type", MsgType::sendMsg);
+	msg_json.insert("sender_name", username);
+	msg_json.insert("recv_name", targetUsername);
+	msg_json.insert("content", content);
 
+	qDebug() << "Client sendMsg:";
+	qDebug() << msg_json.value("sender_name");
+	qDebug() << msg_json.value("recv_name");
+	qDebug() << msg_json.value("content");
+
+	//打包为QJsonDocument格式
+	QJsonDocument msg(msg_json);
+
+	//获取facade
+	Client* myClient = Client::getInstance();
+
+	//发出请求
+	if (myClient->SendMessageToServer(msg))
+	{
+		qDebug() << "Client sendMsg:";
+		qDebug() << "success to send sendMsg msg";
+	}
+	else
+	{
+		qDebug() << "Client sendMsg:";
+		qDebug() << "fail to send sendMsg msg";
+	}
 }

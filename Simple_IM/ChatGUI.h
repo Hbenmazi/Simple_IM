@@ -22,6 +22,7 @@ public slots:
 	void myButtonClicked();
 	void onNewMsgSended();
 	void onLogRefreshed(QVector<QJsonObject> dataArray);
+	void displayLog(QJsonObject data);
 
 private:
 	Ui::ChatGUI ui;
