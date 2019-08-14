@@ -1,7 +1,7 @@
 #include "Add.h"
 #include "Server.h"
 #include "../Simple_IM/MsgType.h"
-
+#include"User.h"
 QMutex Add::mutex;
 Add*  Add::m_instance = NULL;
 
@@ -94,6 +94,16 @@ bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 		QJsonDocument msg(msg_json);
 
 		Server::getInstance()->SendMessageToClient(msg, client);
+
+		for (User* user : *(Server::getInstance()->getAllClients()))
+		{
+			if (user->getUserId() == recv_id.toInt())
+			{
+				QJsonObject empty;
+				List::getInstance()->ReturnList(empty, user->getSocket());
+			}
+		}
+
 		return true;
 	}
 	else
