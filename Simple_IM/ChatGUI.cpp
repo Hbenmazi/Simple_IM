@@ -48,6 +48,7 @@ void ChatGUI::onNewMsgSended()
 	QString content = ui.msg_textEdit->toPlainText();
 
 	emit NewMsgSended(username, targetUsername, content);
+	ui.msg_textEdit->clear();
 }
 
 void ChatGUI::myButtonClicked()
@@ -69,7 +70,9 @@ void ChatGUI::onLogRefreshed(QVector<QJsonObject> dataArray)
 {
 	for (QJsonObject data : dataArray)
 	{
-		displayLog(data);
+		QString sender_name = data.value("sender_name").toString();
+		if(sender_name == peerUsername || sender_name == username)
+			displayLog(data);
 	}
 
 }
