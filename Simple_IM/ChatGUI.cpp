@@ -13,6 +13,7 @@ ChatGUI::ChatGUI(QWidget *parent, QString username)
 	connect(ui.transerFile_pushButton, SIGNAL(clicked()), this, SLOT(onTransferFileButtonClicked()));
 	connect(this, SIGNAL(NewMsgSended(QString, QString, QString)), chat, SLOT(onNewMsgSended(QString, QString, QString)));
 	connect(chat, SIGNAL(LogRefreshed(QVector<QJsonObject>)), this, SLOT(onLogRefreshed(QVector<QJsonObject>)));
+	ui.msg_textEdit.set
 }
 
 ChatGUI::~ChatGUI()
@@ -101,6 +102,8 @@ void ChatGUI::displayLog(QJsonObject data)
 	ui.log_listWidget->addItem(title_item);
 	ui.log_listWidget->addItem(content_item);
 	ui.log_listWidget->addItem(empty_item);
+
+	ui.log_listWidget->scrollToBottom();
 }
 
 void ChatGUI::onTransferFileButtonClicked()

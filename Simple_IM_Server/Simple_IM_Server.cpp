@@ -3,6 +3,7 @@
 #include "qstring.h"
 #include "qtcpsocket.h"
 #include "qstandarditemmodel.h"
+#include"qhostinfo.h"
 Simple_IM_Server::Simple_IM_Server(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -10,6 +11,7 @@ Simple_IM_Server::Simple_IM_Server(QWidget *parent)
 	ui.setupUi(this);
 	connect(Server::getInstance(), SIGNAL(newClientSignIn(int, QString, QTcpSocket*)), this, SLOT(onNewClientSignIn(int, QString, QTcpSocket*)));
 	connect(Server::getInstance(), SIGNAL(ClientLogOut(int, QString, QTcpSocket*)), this, SLOT(onClientLogOut(int, QString, QTcpSocket*)));
+
 }
 
 void Simple_IM_Server::onNewClientSignIn(int user_id, QString username, QTcpSocket* socket)

@@ -72,6 +72,9 @@
     <ClCompile Include="ProfileGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Address.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Simple_IM.h">
@@ -113,6 +116,9 @@
     <QtMoc Include="ProfileGUI.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Address.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Simple_IM.qrc">
@@ -147,6 +153,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ProfileGUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Address.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

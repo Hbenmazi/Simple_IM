@@ -55,7 +55,7 @@ public:
         __qtablewidgetitem3->setTextAlignment(Qt::AlignCenter);
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(70, 20, 431, 361));
+        tableWidget->setGeometry(QRect(70, 10, 431, 371));
         tableWidget->setRowCount(0);
         Simple_IM_ServerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Simple_IM_ServerClass);

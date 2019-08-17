@@ -167,6 +167,7 @@
 
  void Server::socketDisconnected()
 {
+	 int flag = 0;
 	//nothing but display info in console
 	QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
 	QString socketIpAddress = client->peerAddress().toString();
@@ -177,17 +178,22 @@
 	for (index = 0; index < allClients->size(); index++)
 	{
 		if (allClients->value(index)->getSocket() == client)
-			break;
+		{
+			flag = 1;
+				break;
+		}
 	}
+	if (flag == 1)
+	{
+		//获取待登出的用户
+		User* logoutUser = allClients->value(index);
+		emit ClientLogOut(logoutUser->getUserId(), logoutUser->getUsername(), client);
 
-	//获取待登出的用户
-	User* logoutUser = allClients->value(index);
-	emit ClientLogOut(logoutUser->getUserId(),logoutUser->getUsername(),client);
+		logoutUser->~User();
 
-	logoutUser->~User();
-
-	//从已登录的列表中移除
-	allClients->removeAt(index);
+		//从已登录的列表中移除
+		allClients->removeAt(index);
+	}
 }
 
 /**

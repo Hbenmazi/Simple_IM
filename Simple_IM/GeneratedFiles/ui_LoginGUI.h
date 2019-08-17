@@ -81,6 +81,7 @@ public:
 
         passward_lineEdit = new QLineEdit(verticalLayoutWidget);
         passward_lineEdit->setObjectName(QStringLiteral("passward_lineEdit"));
+        passward_lineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
 
         horizontalLayout_4->addWidget(passward_lineEdit);
 

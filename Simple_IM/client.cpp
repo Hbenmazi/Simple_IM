@@ -3,6 +3,7 @@
 #include "qtcpsocket.h"
 #include "../Simple_IM_Server/Global.h"
 #include "MsgType.h"
+#include"Address.h"
 Client* Client::m_instance = NULL;
 QMutex Client::mutex;
 
@@ -20,7 +21,9 @@ Client::Client()
 		connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 		connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
 
-		socket->connectToHost("127.0.0.1", 8001);
+		QString ip = Address::getInstance()->getServerIp();
+		int port = Address::getInstance()->getChatPort();
+		socket->connectToHost(ip, port);
 	}
 
 	//filesocket在登陆成功后才连接服务器
@@ -67,7 +70,9 @@ void Client::fileSocketReadyRead()
 void Client::onSignInSuccess()
 {
 	QTcpSocket* fileSocket = getFileSocket();
-	fileSocket->connectToHost("127.0.0.1", 8002);
+	QString ip = Address::getInstance()->getServerIp();
+	int port = Address::getInstance()->getFilePort();
+	fileSocket->connectToHost(ip, port);
 }
 
 
@@ -105,7 +110,10 @@ QTcpSocket * Client::getFileSocket() const
 bool Client::SendMessageToServer(QJsonDocument& msg)
 {
 	QTcpSocket* socket = getSocket();
-	socket->connectToHost("127.0.0.1", 8001);
+
+	QString ip = Address::getInstance()->getServerIp();
+	int port = Address::getInstance()->getChatPort();
+	socket->connectToHost(ip, port);
 
 	//将数据从msg中取出
 	QByteArray data = msg.toJson();
@@ -132,7 +140,9 @@ bool Client::SendMessageToServer(QJsonDocument& msg)
 bool Client::SendMessageToFileServer(QJsonDocument& msg)
 {
 	QTcpSocket* fileSocket = getFileSocket();
-	fileSocket->connectToHost("127.0.0.1", 8002);
+	QString ip = Address::getInstance()->getServerIp();
+	int port = Address::getInstance()->getFilePort();
+	fileSocket->connectToHost(ip, port);
 
 	//将数据从msg中取出
 	QByteArray data = msg.toJson();

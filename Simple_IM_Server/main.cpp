@@ -3,10 +3,11 @@
 #include <QtSql>
 #include <Register.h>
 #include "Server.h"
-
+#include"qhostinfo.h"
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+	
 	Simple_IM_Server w;
 	w.show();
 	

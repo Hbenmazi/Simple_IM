@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>20</y>
+      <y>10</y>
       <width>431</width>
-      <height>361</height>
+      <height>371</height>
      </rect>
     </property>
     <property name="rowCount">
