@@ -18,7 +18,7 @@ public:
 
 private:
 	int user_id;
-	QString username;
+	QString username = "";
 	QTcpSocket* socket;
 	QTcpSocket* fileSocket = NULL;
 

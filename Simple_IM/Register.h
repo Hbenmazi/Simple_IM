@@ -11,7 +11,7 @@ public:
 	Register();
 	~Register();
 
-	bool SignUp(QString username, QString password, QString naickname, QString email) const;
+	bool SignUp(QString username, QString password, QString naickname, QString email,QString profile_index) const;
 
 public slots:
 	void onSignUpSuccess();

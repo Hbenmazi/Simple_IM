@@ -6,10 +6,13 @@ Simple_IM::Simple_IM(LoginGUI* LoginD, QWidget *parent)
 	ui.setupUi(this);
 
 	LoginDialog = LoginD;
+	ProfileGUI* profile = new ProfileGUI(this);
 	QObject::connect(ui.SignUp_pushButton,&QPushButton::clicked,this,&Simple_IM::onSignUpButtonClicked);
 	QObject::connect(ui.SignIn_pushButton, &QPushButton::clicked, this, &Simple_IM::onSignInButtonClicked);
+	QObject::connect(ui.select_pushButton, &QPushButton::clicked, profile,&ProfileGUI::show);
 	QObject::connect(&reg, SIGNAL(SignUpSuccess()), this, SLOT(onSignUpSuccess()));
 	QObject::connect(&reg, SIGNAL(SignUpFail(QString)), this, SLOT(onSignUpFail(QString)));
+	QObject::connect(profile, SIGNAL(SelectButtonClicked(QString)), this, SLOT(onSelectButtonClicked(QString)));
 }
 
 void Simple_IM::onSignUpButtonClicked()
@@ -56,7 +59,13 @@ void Simple_IM::onSignUpButtonClicked()
 		return;
 	}
 
-	reg.SignUp(username, passward, nickname, email);
+	if (profile_index == 0)
+	{
+		ui.Tip_label->setText("please select a profile");
+		return;
+	}
+
+	reg.SignUp(username, passward, nickname, email, profile_index);
 	
 
 }
@@ -77,6 +86,16 @@ void Simple_IM::onSignUpFail(QString info)
 {
 	ui.Tip_label->setText(info);
 }
+
+void Simple_IM::onSelectButtonClicked(QString object_name)
+{
+	QString index = object_name.section("_", 1, 1);
+	profile_index = index;
+	QString file_name = QString("head%1.jpg").arg(index);
+	ui.profile_label->setStyleSheet("#profile_label{border-image:url(:/Simple_IM/Resources/" + file_name+");}");
+
+}
+
 
 Simple_IM::~Simple_IM()
 {

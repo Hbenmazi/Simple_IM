@@ -55,6 +55,9 @@ public:
     QPushButton *SignIn_pushButton;
     QPushButton *SignUp_pushButton;
     QLabel *Tip_label;
+    QLabel *label;
+    QLabel *profile_label;
+    QPushButton *select_pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -63,7 +66,7 @@ public:
     {
         if (Simple_IMClass->objectName().isEmpty())
             Simple_IMClass->setObjectName(QStringLiteral("Simple_IMClass"));
-        Simple_IMClass->resize(499, 382);
+        Simple_IMClass->resize(499, 474);
         centralWidget = new QWidget(Simple_IMClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayoutWidget_5 = new QWidget(centralWidget);
@@ -164,7 +167,7 @@ public:
 
         horizontalLayoutWidget_6 = new QWidget(centralWidget);
         horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
-        horizontalLayoutWidget_6->setGeometry(QRect(100, 260, 301, 41));
+        horizontalLayoutWidget_6->setGeometry(QRect(100, 300, 301, 41));
         horizontalLayout_6 = new QHBoxLayout(horizontalLayoutWidget_6);
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -184,6 +187,16 @@ public:
         Tip_label->setObjectName(QStringLiteral("Tip_label"));
         Tip_label->setGeometry(QRect(100, 230, 301, 20));
         Tip_label->setAlignment(Qt::AlignCenter);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(100, 240, 51, 16));
+        profile_label = new QLabel(centralWidget);
+        profile_label->setObjectName(QStringLiteral("profile_label"));
+        profile_label->setGeometry(QRect(150, 230, 54, 51));
+        profile_label->setAutoFillBackground(false);
+        select_pushButton = new QPushButton(centralWidget);
+        select_pushButton->setObjectName(QStringLiteral("select_pushButton"));
+        select_pushButton->setGeometry(QRect(220, 260, 75, 23));
         Simple_IMClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Simple_IMClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -213,6 +226,9 @@ public:
         SignIn_pushButton->setText(QApplication::translate("Simple_IMClass", "Sign In", Q_NULLPTR));
         SignUp_pushButton->setText(QApplication::translate("Simple_IMClass", "Sign Up", Q_NULLPTR));
         Tip_label->setText(QString());
+        label->setText(QApplication::translate("Simple_IMClass", "Profile:", Q_NULLPTR));
+        profile_label->setText(QString());
+        select_pushButton->setText(QApplication::translate("Simple_IMClass", "select", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -38,6 +38,7 @@ public slots:
 	void onOpenPushButtonClicked();
 	void onSendPushButtonClicked();
 	void onFileSocketReadyRead(QByteArray data);
+	
 private:
 	Ui::FileTransfer ui;
 	QString peerUsername;

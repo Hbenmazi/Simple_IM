@@ -46,6 +46,13 @@ void ListGUI::onListRefreshed(QVector<QJsonObject> userArray)
 		connect(button, SIGNAL(clicked()), chatDialog, SLOT(myButtonClicked()));
 
 		button->setText(user.value("username").toString()+"(0)");
+		QString profile_index = user.value("profile_index").toString();
+		QString path = QString(":/Simple_IM/Resources/head%1.jpg").arg(profile_index);
+		QPixmap icon1(path);
+		//tton->setFixedSize( 30);
+		button->setFixedHeight(50);
+		button->setIconSize(QSize(30,30));
+		button->setIcon(icon1);
 		friendlist.append(button);
 		ui.list_verticalLayout->addWidget(button);
 	}

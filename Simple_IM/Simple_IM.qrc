@@ -1,4 +1,13 @@
 <RCC>
-    <qresource prefix="Simple_IM">
+    <qresource prefix="/Simple_IM">
+        <file>Resources/head1.jpg</file>
+        <file>Resources/head2.jpg</file>
+        <file>Resources/head3.jpg</file>
+        <file>Resources/head4.jpg</file>
+        <file>Resources/head5.jpg</file>
+        <file>Resources/head6.jpg</file>
+        <file>Resources/head7.jpg</file>
+        <file>Resources/head8.jpg</file>
+        <file>Resources/head9.jpg</file>
     </qresource>
 </RCC>

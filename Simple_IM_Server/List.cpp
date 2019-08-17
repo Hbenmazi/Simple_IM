@@ -31,6 +31,7 @@ bool List::ReturnList(QJsonObject data, QTcpSocket * client)
 			QString passward = query.value(2).toString();
 			QString nickname = query.value(3).toString();
 			QString email = query.value(4).toString();
+			QString profile_index = query.value(5).toString();
 
 			QJsonObject msg_json;
 			msg_json.insert("type", MsgType::friendListResult);
@@ -39,6 +40,7 @@ bool List::ReturnList(QJsonObject data, QTcpSocket * client)
 			msg_json.insert("passward", passward);
 			msg_json.insert("nickname", nickname);
 			msg_json.insert("email", email);
+			msg_json.insert("profile_index", profile_index);
 
 			QJsonDocument msg(msg_json);
 

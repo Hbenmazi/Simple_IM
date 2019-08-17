@@ -35,6 +35,7 @@ bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 	QString password = userinfo.value("password").toString();
 	QString nickname = userinfo.value("nickname").toString();
 	QString email = userinfo.value("email").toString();
+	QString profile_index = userinfo.value("profile_index").toString();
 
 	//初始化查询语句
 	QSqlQuery query(db->getDB());
@@ -54,7 +55,7 @@ bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 		query.finish();//先完成上一次查询
 
 		//更新user表,向客户端返回注册成功消息
-		if (query.exec("insert user values( null,\"" + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\""+")"))
+		if (query.exec("insert user values( null,\"" + username + "\""+"," + "\"" + password +"\""+ "," + "\"" + nickname + "\""+"," + "\"" +email + "\"" + "," +"\"" + profile_index + "\"" +")"))
 		{
 			qDebug() << "Server:";
 			qDebug() << "sign up successfully";

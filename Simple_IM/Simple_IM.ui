@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>499</width>
-    <height>382</height>
+    <height>474</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,7 +151,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>260</y>
+      <y>300</y>
       <width>301</width>
       <height>41</height>
      </rect>
@@ -187,6 +187,48 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>240</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Profile:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="profile_label">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>230</y>
+      <width>54</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="select_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>260</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>select</string>
     </property>
    </widget>
   </widget>

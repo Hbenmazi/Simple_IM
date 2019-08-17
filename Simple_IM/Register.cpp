@@ -26,7 +26,7 @@ Register::~Register()
 *email - 电子邮箱
 *return: 注册成功则返回真
 */
-bool Register::SignUp(QString username, QString password, QString nickname, QString email) const
+bool Register::SignUp(QString username, QString password, QString nickname, QString email, QString profile_index) const
 {
 	//使用JSON格式传递注册请求
 	QJsonObject msg_json;
@@ -35,12 +35,14 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 	msg_json.insert("password", password);
 	msg_json.insert("nickname", nickname);
 	msg_json.insert("email", email);
+	msg_json.insert("profile_index", profile_index);
 
 	qDebug() << "Client Sign up:";
 	qDebug() << msg_json.value("username");
 	qDebug() << msg_json.value("password");
 	qDebug() << msg_json.value("nickname");
 	qDebug() << msg_json.value("email");
+	qDebug() << msg_json.value("profile_index");
 
 	//打包为QJsonDocument格式
 	QJsonDocument msg(msg_json);
