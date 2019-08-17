@@ -2,16 +2,16 @@
 #include "qpushbutton.h"
 #include "qlistwidget.h"
 #include"Client.h"
-ChatGUI::ChatGUI(QWidget *parent,QString username)
+ChatGUI::ChatGUI(QWidget *parent, QString username)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
 	setUsername(username);
 	chat = new Chat();
 	fileTransfer = new FileTransfer();
-	connect(ui.send_pushButton,SIGNAL(clicked()),this,SLOT(onNewMsgSended()));
-	connect(ui.transerFile_pushButton, SIGNAL(clicked()),this,SLOT(onTransferFileButtonClicked()));
-	connect(this,SIGNAL(NewMsgSended(QString , QString , QString )),chat,SLOT(onNewMsgSended(QString, QString, QString)));
+	connect(ui.send_pushButton, SIGNAL(clicked()), this, SLOT(onNewMsgSended()));
+	connect(ui.transerFile_pushButton, SIGNAL(clicked()), this, SLOT(onTransferFileButtonClicked()));
+	connect(this, SIGNAL(NewMsgSended(QString, QString, QString)), chat, SLOT(onNewMsgSended(QString, QString, QString)));
 	connect(chat, SIGNAL(LogRefreshed(QVector<QJsonObject>)), this, SLOT(onLogRefreshed(QVector<QJsonObject>)));
 }
 
@@ -41,6 +41,11 @@ QString ChatGUI::getPeerUsername() const
 	return peerUsername;
 }
 
+void ChatGUI::closeEvent(QCloseEvent * event)
+{
+	myButton->setText(getPeerUsername() + "(0)");
+}
+
 void ChatGUI::onNewMsgSended()
 {
 	QString username = getUsername();
@@ -53,21 +58,22 @@ void ChatGUI::onNewMsgSended()
 
 void ChatGUI::myButtonClicked()
 {
-	QPushButton* button = qobject_cast<QPushButton*>(QObject::sender());
-
+	myButton = qobject_cast<QPushButton*>(QObject::sender());
 	//设置对等方用户名
-	setPeerUsername(button->text());
-	ui.peerName_label->setText(button->text());
+	setPeerUsername(myButton->text().section(QRegExp("[()]"), 0, 0).trimmed());
+	ui.peerName_label->setText(myButton->text());
 
 	//刷新聊天记录
 	ui.log_listWidget->clear();
 	chat->RefreshLog(getUsername(),getPeerUsername());
+
 	this->show();
 }
 
 
 void ChatGUI::onLogRefreshed(QVector<QJsonObject> dataArray)
 {
+	emit LogRefreshed(dataArray);
 	for (QJsonObject data : dataArray)
 	{
 		QString sender_name = data.value("sender_name").toString();
@@ -102,4 +108,3 @@ void ChatGUI::onTransferFileButtonClicked()
 	chat->onTransferFileButtonClicked(getUsername());
 	fileTransfer->show();
 }
-

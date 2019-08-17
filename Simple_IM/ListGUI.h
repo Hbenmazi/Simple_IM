@@ -19,6 +19,7 @@ public:
 public slots:
 	void on_AddButton_clicked();
 	void onListRefreshed(QVector<QJsonObject> userArray);
+	void onLogRefreshed(QVector<QJsonObject> dataArray);
 
 private:
 	Ui::ListGUI ui;

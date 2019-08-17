@@ -8,6 +8,7 @@ ListGUI::ListGUI(QWidget *parent)
 	addDialog = new AddGUI(this);
 	chatDialog = new ChatGUI(this);
 	addDialog->setModal(true);
+	connect(chatDialog, SIGNAL(LogRefreshed(QVector<QJsonObject>)), this, SLOT(onLogRefreshed(QVector<QJsonObject>)));
 	connect(ui.addcontacts_pushButton, SIGNAL(clicked()), this, SLOT(on_AddButton_clicked()));
 	connect(List::getInstance(), SIGNAL(ListRefreshed(QVector<QJsonObject>)),this, SLOT(onListRefreshed(QVector<QJsonObject>)));
 }
@@ -44,11 +45,28 @@ void ListGUI::onListRefreshed(QVector<QJsonObject> userArray)
 		QPushButton* button = new QPushButton(this);
 		connect(button, SIGNAL(clicked()), chatDialog, SLOT(myButtonClicked()));
 
-		button->setText(user.value("username").toString());
+		button->setText(user.value("username").toString()+"(0)");
 		friendlist.append(button);
 		ui.list_verticalLayout->addWidget(button);
 	}
 	
+}
+
+void ListGUI::onLogRefreshed(QVector<QJsonObject> dataArray)
+{
+	for (QJsonObject data : dataArray)
+	{
+		QString sender_name = data.value("sender_name").toString();
+		for (QPushButton* button : friendlist)
+		{
+			if (button->text().section(QRegExp("[()]"),0 , 0).trimmed() == sender_name)
+			{
+				int count = (button->text()).section(QRegExp("[()]"), 1, 1).trimmed().toInt();
+				count++;
+				button->setText(sender_name + "(" + QString::number(count,10) +")");
+			}
+		}
+	}
 }
 
 void ListGUI::on_AddButton_clicked()

@@ -5,6 +5,7 @@
 #include "qstring.h"
 #include "Chat.h"
 #include"FileTransfer.h"
+#include <QCloseEvent> 
 class ChatGUI : public QDialog
 {
 	Q_OBJECT
@@ -19,6 +20,9 @@ public:
 	QString getUsername() const;
 	QString getPeerUsername() const;
 
+protected:
+	void closeEvent(QCloseEvent *event);
+
 public slots:
 	void myButtonClicked();
 	void onNewMsgSended();
@@ -32,9 +36,11 @@ private:
 	QString peerUsername = "";
 	Chat* chat;
 	FileTransfer* fileTransfer;
+	QPushButton* myButton;
 
 signals:
 	void NewMsgSended(QString username,QString targetUsername,QString content);
+	void LogRefreshed(QVector<QJsonObject> dataArray);
 
 	
 };
