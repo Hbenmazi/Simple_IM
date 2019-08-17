@@ -28,6 +28,7 @@ public:
     QLabel *sendStatusLabel;
     QPushButton *open_pushButton;
     QPushButton *send_pushButton;
+    QLabel *recvStatusLabel;
 
     void setupUi(QDialog *FileTransfer)
     {
@@ -48,6 +49,9 @@ public:
         send_pushButton = new QPushButton(FileTransfer);
         send_pushButton->setObjectName(QStringLiteral("send_pushButton"));
         send_pushButton->setGeometry(QRect(270, 230, 75, 23));
+        recvStatusLabel = new QLabel(FileTransfer);
+        recvStatusLabel->setObjectName(QStringLiteral("recvStatusLabel"));
+        recvStatusLabel->setGeometry(QRect(30, 80, 351, 31));
 
         retranslateUi(FileTransfer);
 
@@ -60,6 +64,7 @@ public:
         sendStatusLabel->setText(QString());
         open_pushButton->setText(QApplication::translate("FileTransfer", "Open", Q_NULLPTR));
         send_pushButton->setText(QApplication::translate("FileTransfer", "Send", Q_NULLPTR));
+        recvStatusLabel->setText(QString());
     } // retranslateUi
 
 };

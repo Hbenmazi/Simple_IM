@@ -113,6 +113,16 @@ void FileTransfer::onFileSocketReadyRead(QByteArray data)
 		newFile = new QFile(fileName_in);
 		bool isopen = newFile->open(QFile::WriteOnly);
 		qDebug() << "isopen" << isopen;
+
+		QString status = "Your friend is sending a file to you:" + fileName_in;
+		ui.open_pushButton->hide();
+		ui.send_pushButton->hide();
+		ui.recvStatusLabel->setText(status);
+		show();
+		ui.progressBar->show();
+		ui.progressBar->setMaximum(totalSize_in);
+		ui.progressBar->setValue(byteReceived);
+
 	}
 	else  //正式读取文件内容
 	{
@@ -120,6 +130,9 @@ void FileTransfer::onFileSocketReadyRead(QByteArray data)
 		byteReceived += inBlock.size();
 		qDebug()<<"write"<<newFile->write(inBlock);
 		qDebug()<<"flush"<<newFile->flush();
+
+		ui.progressBar->setMaximum(totalSize_in);
+		ui.progressBar->setValue(byteReceived);
 	}
 
 }

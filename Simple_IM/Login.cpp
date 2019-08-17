@@ -52,6 +52,19 @@ bool Login::SignIn(QString username, QString password) const
 void Login::onSignInSuccess(QString username)
 {
 	emit SignInSuccess(username);
+
+	//使用JSON格式传递注册请求
+	QJsonObject msg_json;
+	msg_json.insert("type", MsgType::preFileTran);
+	msg_json.insert("username", username);
+
+	//打包为QJsonDocument格式
+	QJsonDocument msg(msg_json);
+
+	//获取facade
+	Client* myClient = Client::getInstance();
+	myClient->SendMessageToFileServer(msg);
+
 }
 void Login::onSignInFail(QString info)
 {
