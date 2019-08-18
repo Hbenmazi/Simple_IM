@@ -6,6 +6,13 @@
 QMutex Log::mutex;
 Log*  Log::m_instance = NULL;
 
+/**
+*Function: ReturnLog
+*Description: 向客户端返回聊天记录
+*param:
+*	-data:客户端信息
+*	-client:连接客户端的套接字
+*/
 void Log::ReturnLog(QJsonObject data, QTcpSocket * client)
 {
 	QString user_id;
@@ -28,19 +35,21 @@ void Log::ReturnLog(QJsonObject data, QTcpSocket * client)
 	peerUser_id = query.value("user_id").toString();
 	query.finish();
 
+	//查询聊天记录
 	QString sql = QString("select * from log where(sender_id = %1 AND recv_id = %2) or (sender_id = %3 AND recv_id = %4) ORDER BY time").arg(user_id).arg(peerUser_id).arg(peerUser_id).arg(user_id);
-	
-
 	query.exec(sql);
 	int size = query.size();
+
+	//对于每一条记录
 	while (query.next())
 	{
+		//提取聊天记录信息
 		QString sender_name = (user_id == query.value("sender_id").toString() ? username : peerUsername);
 		QString recv_name = (user_id != query.value("sender_id").toString() ? username : peerUsername);
-
 		QString content = query.value("content").toString();
 		QString time = query.value("time").toString();
 
+		//发送给客户端
 		QJsonObject msg_json;
 		msg_json.insert("type", MsgType::logResult);
 		msg_json.insert("sender_name", sender_name);
@@ -54,10 +63,19 @@ void Log::ReturnLog(QJsonObject data, QTcpSocket * client)
 	}
 }
 
+/**
+*Function: SendNewMsg
+*Description: 处理新发送的消息
+*param:
+*	-data:客户端信息
+*	-client:连接客户端的套接字
+*/
 void Log::SendNewMsg(QJsonObject data, QTcpSocket * client)
 {
 	QString sender_id;
 	QString recv_id;
+
+	//提取消息信息
 	QString sender_name = data.value("sender_name").toString();
 	QString recv_name = data.value("recv_name").toString();
 	QString content = data.value("content").toString();

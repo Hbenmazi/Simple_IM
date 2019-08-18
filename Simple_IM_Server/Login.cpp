@@ -19,15 +19,14 @@ Login* Login::getInstance()//GOF-Singleton
 	}
 	return m_instance;
 }
+
 /**
 *Function: SignIn
-*Description: 写数据库以完成注册功能
-*param:用户信息
-*return;注册成功返回真
-*tableAccess;user
-*tableUpdate:user
+*Description: 处理登录请求
+*param:
+*	-userinfo:客户端用户名
+*	-client:连接客户端的套接字
 */
-
 bool Login::SignIn(QJsonObject userinfo,QTcpSocket* client)
 {
 	int user_id;//用于保存用户id

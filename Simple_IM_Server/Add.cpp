@@ -20,7 +20,13 @@ Add* Add::getInstance()//GOF-Singleton
 	return m_instance;
 }
 
-
+/**
+*Function: AddContact
+*Description: 在数据库中添加好友关系
+*param:
+*	-info:客户端发来的请求消息
+*	-client:连接客户端的套接字
+*/
 bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 {
 	QJsonObject msg_json;
@@ -89,19 +95,16 @@ bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 
 	if (success)//注册成功
 	{
+		//向客户端返回注册成功信息
 		msg_json.insert("type", MsgType::addContactSuccess);
-
 		QJsonDocument msg(msg_json);
-
 		Server::getInstance()->SendMessageToClient(msg, client);
 
+		//告诉接收方的客户端更新好友列表
 		for (User* user : *(Server::getInstance()->getAllClients()))
 		{
 			if (user->getUserId() == recv_id.toInt())
-			{
-				QJsonObject empty;
-				List::getInstance()->ReturnList(empty, user->getSocket());
-			}
+				List::getInstance()->ReturnList(user->getSocket());
 		}
 
 		return true;
@@ -124,7 +127,6 @@ bool Add::AddContact(QJsonObject info,QTcpSocket* client)
 Add::Add()
 {
 	db = RemoteDB::getInstance();
-	
 }
 
 

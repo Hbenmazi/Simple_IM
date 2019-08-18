@@ -15,12 +15,20 @@ class Login:public QObject
 public:
 
 	static Login* getInstance();
+
+	/**
+	*Function: SignIn
+	*Description: 处理登录请求
+	*param:
+	*	-userinfo:客户端用户名
+	*	-client:连接客户端的套接字
+	*/
 	bool SignIn(QJsonObject userinfo,QTcpSocket* client) ;
 
 private:
 	static QMutex mutex;
 	static Login* m_instance;
-	RemoteDB* db;
+	RemoteDB* db;//数据库接口
 
 	Login();
 	~Login();

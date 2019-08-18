@@ -31,7 +31,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="fileport_lineEdit"/>
+     <widget class="QLineEdit" name="fileport_lineEdit">
+      <property name="text">
+       <string>8002</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -53,7 +57,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="chatport_lineEdit"/>
+     <widget class="QLineEdit" name="chatport_lineEdit">
+      <property name="text">
+       <string>8001</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -75,7 +83,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="ip_lineEdit"/>
+     <widget class="QLineEdit" name="ip_lineEdit">
+      <property name="text">
+       <string>127.0.0.1</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

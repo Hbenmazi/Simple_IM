@@ -27,7 +27,6 @@ Register* Register::getInstance()//GOF-Singleton
 *tableAccess;user
 *tableUpdate:user
 */
-
 bool Register::SignUp(QJsonObject userinfo,QTcpSocket* client) const
 {
 	//提取用户信息

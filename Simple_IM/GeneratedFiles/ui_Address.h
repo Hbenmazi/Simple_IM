@@ -112,8 +112,11 @@ public:
     {
         Address->setWindowTitle(QApplication::translate("Address", "Address", Q_NULLPTR));
         label_3->setText(QApplication::translate("Address", "File Server Port:", Q_NULLPTR));
+        fileport_lineEdit->setText(QApplication::translate("Address", "8002", Q_NULLPTR));
         label_2->setText(QApplication::translate("Address", "Chat Server Port:", Q_NULLPTR));
+        chatport_lineEdit->setText(QApplication::translate("Address", "8001", Q_NULLPTR));
         label->setText(QApplication::translate("Address", "IP Address:", Q_NULLPTR));
+        ip_lineEdit->setText(QApplication::translate("Address", "127.0.0.1", Q_NULLPTR));
         ok_pushButton->setText(QApplication::translate("Address", "Ok", Q_NULLPTR));
     } // retranslateUi
 
