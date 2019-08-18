@@ -13,7 +13,7 @@ QMutex Client::mutex;
 */
 Client::Client()
 {
-	connect(this, SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess()));
+	//初始化套接字
 	if (!socket)
 	{
 		socket = new QTcpSocket();
@@ -21,14 +21,17 @@ Client::Client()
 		connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 		connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
 
+		//获取服务器IP地址，端口号
 		QString ip = Address::getInstance()->getServerIp();
 		int port = Address::getInstance()->getChatPort();
-		socket->connectToHost(ip, port);
+		socket->connectToHost(ip, port);//尝试连接至服务器
 	}
 
 	//filesocket在登陆成功后才连接服务器
 	fileSocket = new QTcpSocket();
 	connect(fileSocket, SIGNAL(readyRead()), this, SLOT(fileSocketReadyRead()));
+
+	connect(this, SIGNAL(SignInSuccess(QString)), this, SLOT(onSignInSuccess()));
 }
 
 /**
@@ -41,7 +44,9 @@ Client::~Client()
 	{
 		socket->disconnectFromHost();
 	}
+
 }
+
 void Client::socketConnected()
 {
 	qDebug() << "Connected to server.";
@@ -69,6 +74,7 @@ void Client::fileSocketReadyRead()
 
 void Client::onSignInSuccess()
 {
+	//登陆成功后初始化文件套接字
 	QTcpSocket* fileSocket = getFileSocket();
 	QString ip = Address::getInstance()->getServerIp();
 	int port = Address::getInstance()->getFilePort();
@@ -101,11 +107,11 @@ QTcpSocket * Client::getFileSocket() const
 }
 
 /**
-*Function: SendMeaaageToServer
-*Description: 向服务器传送message
+*Function:       SendMessageToServer
+*Description:    发送消息至聊天服务器
 *param:
-*msg - 被传送的消息(以JSON格式传送)
-*return: 发送成功则返回真
+	-msg: JSONDOC格式的消息
+*reurn:发送成功返回真
 */
 bool Client::SendMessageToServer(QJsonDocument& msg)
 {
@@ -137,6 +143,13 @@ bool Client::SendMessageToServer(QJsonDocument& msg)
 
 }
 
+/**
+*Function:       SendMessageToFileServer
+*Description:    发送消息至文件传输服务器
+*param:
+	-msg: JSONDOC格式的消息
+*reurn:发送成功返回真
+*/
 bool Client::SendMessageToFileServer(QJsonDocument& msg)
 {
 	QTcpSocket* fileSocket = getFileSocket();
@@ -166,6 +179,12 @@ bool Client::SendMessageToFileServer(QJsonDocument& msg)
 
 }
 
+/**
+*Function:       handleMeaasge
+*Description:    处理服务器发来的消息
+*param:
+	-msg:消息内容
+*/
 void Client::handleMeaasge(QString msg)
 {
 	QVector<QJsonObject> dataArray = getJsonObjectArrayFromString(msg);//将消息转化成JSON格式

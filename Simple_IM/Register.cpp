@@ -17,14 +17,15 @@ Register::~Register()
 }
 
 /**
-*Function: Register::SignUp
-*Description: 新用户注册
+*Function: SignUp
+*Description: 向服务器发送注册请求
 *param:
-*username - 用户名
-*passward - 密码
-*nickname - 网名
-*email - 电子邮箱
-*return: 注册成功则返回真
+*	-username:     用户名
+*	-passward:     密码
+*	-nickname:     昵称
+*	-emial:	       电子邮箱
+*	-profile_index:头像图片索引
+*return:登陆成功返回真
 */
 bool Register::SignUp(QString username, QString password, QString nickname, QString email, QString profile_index) const
 {

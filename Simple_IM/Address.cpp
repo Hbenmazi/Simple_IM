@@ -39,7 +39,7 @@ Address::Address(QWidget *parent)
 {
 	ui.setupUi(this);
 	connect(ui.ok_pushButton, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
-	connect(this, SIGNAL(finishSet()), logingui, SLOT(show()));
+	//connect(this, SIGNAL(finishSet()), logingui, SLOT(show()));
 }
 
 Address::~Address()
@@ -61,6 +61,11 @@ Address* Address::getInstance()//GOF-Singleton
 	return m_instance;
 }
 
+/**
+*Function: onOkButtonClicked
+*Description: 点击确定后,用用户填写的信息初始化改类
+*param:
+*/
 void Address::onOkButtonClicked()
 {
 	setIp(ui.ip_lineEdit->text());

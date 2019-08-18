@@ -13,6 +13,14 @@ Chat::~Chat()
 {
 }
 
+
+/**
+*Function: RefreshLog
+*Description: 向服务器提交刷新聊天窗口的请求
+*param:
+	-username:本机用户名
+	-peerUsername:对等方用户名
+*/
 void Chat::RefreshLog(QString username, QString peerUsername)
 {
 	QJsonObject msg_json;
@@ -48,6 +56,12 @@ void Chat::onLogRefreshed(QVector<QJsonObject> dataArray)
 	emit LogRefreshed(dataArray);
 }
 
+/**
+*Function: onTransferFileButtonClicked
+*Description: 点击传输文件按钮后发送消息给服务器，服务器端会初始化传输文件的服务器
+*param:
+	-username:本机用户名
+*/
 void Chat::onTransferFileButtonClicked(QString username)
 {
 	//使用JSON格式传递注册请求
@@ -62,10 +76,16 @@ void Chat::onTransferFileButtonClicked(QString username)
 	Client* myClient = Client::getInstance();
 	myClient->SendMessageToFileServer(msg);
 
-
 }
 
-
+/**
+*Function: onNewMsgSended
+*Description: 用户点击发送或回车后，将消息发送给服务器处理
+*param:
+	-username:本机用户名
+	-peerUsername:对等方用户名
+	-content:消息内容
+*/
 void Chat::onNewMsgSended(QString username, QString targetUsername, QString content)
 {
 	//使用JSON格式传递注册请求

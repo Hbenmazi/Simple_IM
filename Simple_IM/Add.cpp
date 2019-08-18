@@ -8,7 +8,7 @@ Add::Add()
 {
 	connect(Client::getInstance(), SIGNAL(AddContactSuccess(QJsonObject)), this, SIGNAL(AddContactSuccess(QJsonObject)));
 	connect(Client::getInstance(), SIGNAL(AddContactFail(QJsonObject)), this, SIGNAL(AddContactFail(QJsonObject)));
-	connect(this, SIGNAL(AddContactSuccess(QJsonObject)), List::getInstance(), SLOT(RefreshList()));
+	connect(this, SIGNAL(AddContactSuccess(QJsonObject)), List::getInstance(), SLOT(RefreshList()));//收到添加好友成功信号后,通知List更新好友列表
 }
 
 
@@ -16,6 +16,14 @@ Add::~Add()
 {
 }
 
+/**
+*Function: AddContact
+*Description: 向服务器发出添加好友请求
+*param:
+	-username:发出请求的用户名
+	-targetUsername:接收方的用户名
+*return;发出请求成功成功返回真
+*/
 bool Add::AddContact(QString username,QString targetUsername) const
 {
 	//使用JSON格式传递注册请求
