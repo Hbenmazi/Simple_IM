@@ -28,6 +28,15 @@ void FileTransfer::setPeerUsername(QString peerUsername)
 	this->peerUsername = peerUsername;
 }
 
+void FileTransfer::InitGUI()
+{
+	ui.open_pushButton->show();
+	ui.send_pushButton->show();
+	ui.progressBar->hide();
+	ui.sendStatusLabel->clear();
+	ui.recvStatusLabel->clear();
+}
+
 void FileTransfer::SendHeader()  //发送文件头信息
 {
 	//文件头发送成功后立即发送实际文件

@@ -15,6 +15,7 @@ public:
 	FileTransfer(QString peerUsername = "",QWidget *parent = Q_NULLPTR);
 	~FileTransfer();
 	void setPeerUsername(QString peerUsername);
+	void InitGUI();
 
 
 public slots:

@@ -170,6 +170,7 @@ void ChatGUI::displayLog(QJsonObject data)
 void ChatGUI::onTransferFileButtonClicked()
 {
 	chat->onTransferFileButtonClicked(getUsername());//告诉服务器初始化传输文件服务器
+	fileTransfer->InitGUI();
 	fileTransfer->show();
 }
 
