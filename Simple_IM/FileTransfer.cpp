@@ -90,7 +90,11 @@ void FileTransfer::goOnSend(qint64 numBytes)  //开始发送文件内容
 	ui.progressBar->setValue(totalSize_out - byteToWrite);
 
 	if (byteToWrite == 0)  //发送完毕
+	{
 		ui.sendStatusLabel->setText("Finished");
+		//文件头发送完成后断开信号槽
+		Client::getInstance()->getFileSocket()->disconnect(this);
+	}
 }
 
 //打开文件并获取文件名（包括路径）
