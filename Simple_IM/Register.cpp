@@ -31,7 +31,7 @@ bool Register::SignUp(QString username, QString password, QString nickname, QStr
 {
 	//使用JSON格式传递注册请求
 	QJsonObject msg_json;
-	msg_json.insert("type",MsgType::signup);//type字段设置为signup，服务器通过tyoe字段来决定要做的操作
+	msg_json.insert("type",MsgType::signup);//type字段设置为signup，服务器通过type字段来决定要做的操作
 	msg_json.insert("username", username);
 	msg_json.insert("password", password);
 	msg_json.insert("nickname", nickname);

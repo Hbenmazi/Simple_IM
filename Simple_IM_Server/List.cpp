@@ -52,7 +52,7 @@ bool List::ReturnList(QTcpSocket * client)
 			msg_json.insert("type", MsgType::friendListResult);
 			msg_json.insert("user_id", user_id);
 			msg_json.insert("username", username);
-			msg_json.insert("passward", passward);
+			//msg_json.insert("passward", passward);
 			msg_json.insert("nickname", nickname);
 			msg_json.insert("email", email);
 			msg_json.insert("profile_index", profile_index);

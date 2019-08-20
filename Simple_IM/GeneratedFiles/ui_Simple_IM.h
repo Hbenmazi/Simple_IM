@@ -187,7 +187,7 @@ public:
 
         Tip_label = new QLabel(centralWidget);
         Tip_label->setObjectName(QStringLiteral("Tip_label"));
-        Tip_label->setGeometry(QRect(100, 230, 301, 20));
+        Tip_label->setGeometry(QRect(100, 350, 301, 20));
         Tip_label->setAlignment(Qt::AlignCenter);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
